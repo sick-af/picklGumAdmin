@@ -1,0 +1,46 @@
+<div class="login-container">
+    <div class="container">
+        <div class="login-form">
+            <div class="row company-logo">
+                <img src="assets/images/company-logo.png" width="200" alt="" />
+            </div>
+
+            <app-progress-spinner *ngIf="isLoading==true">
+            </app-progress-spinner>
+
+            <form *ngIf="isLoading == false" class="form-horizontal" [formGroup]="loginForm" (submit)="submit()">
+
+                <!-- Text input-->
+                <div class="form-group" formGroupName="user">
+                    <label class="col-md-4 control-label" for="username">Username</label>
+                    <div class="col-md-12">
+                        <input id="username" name="username" formControlName="username" type="text"
+                            placeholder="Username" class="form-control input-md">
+
+                    </div>
+                </div>
+
+                <!-- Password input-->
+                <div class="form-group" formGroupName="user">
+                    <label class="col-md-4 control-label" for="password">Password</label>
+                    <div class="col-md-12">
+                        <input id="password" name="password" formControlName="password" type="password"
+                            placeholder="Password" class="form-control input-md" required="">
+
+                    </div>
+                </div>
+
+                <!-- Button -->
+                <div class="form-group" style="text-align: -webkit-center;">
+                    <div class="col-md-6">
+                        <button id="login" name="login" class="btn btn-primary"
+                            [disabled]="loginForm.invalid">Login</button>
+                    </div>
+                </div>
+
+            </form>
+
+
+        </div>
+    </div>
+</div>
