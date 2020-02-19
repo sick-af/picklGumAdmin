@@ -1,11 +1,5 @@
-<div class="container-fluid sb2">
-    <div class="row">
-        <!-- Side Nav -->
-        <app-sidebar> </app-sidebar>
-
-        <!-- Main body -->
-        <div class="sb2-2 main-body-router">
-            <router-outlet></router-outlet>
-        </div>
-    </div>
-</div>
+<app-sidebar>
+    <ng-container class="content">
+        <app-home></app-home>
+    </ng-container>
+</app-sidebar>
