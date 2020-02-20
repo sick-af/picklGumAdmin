@@ -5,18 +5,21 @@ import { ReusableDataTableComponent } from "./reusable-data-table/reusable-data-
 import { RouterModule } from "@angular/router";
 import { FormsModule } from "@angular/forms";
 import { ReusableInputFormComponent } from "./reusable-input-form/reusable-input-form.component";
+import { ImageUploadComponent } from "./image-upload/image-upload.component";
 
 @NgModule({
   declarations: [
     ProgressSpinnerComponent,
     ReusableDataTableComponent,
-    ReusableInputFormComponent
+    ReusableInputFormComponent,
+    ImageUploadComponent
   ],
   imports: [RouterModule, FormsModule, CommonModule],
   exports: [
     ProgressSpinnerComponent,
     ReusableDataTableComponent,
-    ReusableInputFormComponent
+    ReusableInputFormComponent,
+    ImageUploadComponent
   ]
 })
 export class SharedModule {}

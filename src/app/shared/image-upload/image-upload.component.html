@@ -1,0 +1,10 @@
+<div class="form-group">
+    <label>Upload Image</label>
+
+    <div class="col-md-12" style="padding: 0;">
+        <span style="color:red;" *ngIf="message">{{message}}</span>
+        <input #file type="file" accept='image/*' (change)="preview(file.files)" id="imgInp">
+    </div>
+
+    <img id='img-upload' [src]="imgURL" height="200" *ngIf="imgURL" />
+</div>
