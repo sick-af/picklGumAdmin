@@ -1,0 +1,109 @@
+<div class="row">
+    <div class="col">
+
+        <div class="row col justify-content-end add-button">
+            <button class="btn btn-icon btn-3 btn-primary" type="button" [routerLink]="['add']">
+                <span class="btn-inner--icon"><i class="ni ni-bag-17"></i></span>
+
+                <span class="btn-inner--text">New</span>
+            </button>
+        </div>
+
+
+        <div class="card shadow">
+            <div class="card-header border-0">
+                <h3 class="mb-0">{{title}}</h3>
+
+                <div class="row justify-content-end">
+                    <div class=" col-sm-12 col-md-4" style="height: 37px;">
+                        <div class="form-group">
+                            <div class="input-group input-group-alternative mb-4">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="ni ni-zoom-split-in"></i></span>
+                                </div>
+                                <input [(ngModel)]="searchValue" class="form-control form-control-alternative"
+                                    (ngModelChange)="search()" placeholder="Search" type="text">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+            <div class="table-responsive">
+                <table class="table align-items-center table-flush">
+                    <thead class="thead-light">
+                        <tr>
+                            <ng-container *ngFor="let col of cols; let i = index">
+                                <th scope="col" *ngIf="col.visible == true">
+                                    {{col.title}}
+                                </th>
+                            </ng-container>
+
+                            <th scope="col">Edit</th>
+                            <th scope="col">Delete</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let element of elementsPage; let i = index">
+                            <ng-container *ngFor="let col of cols; let i = index">
+                                <th *ngIf="col.visible == true">
+                                    {{ element[col.value] }}
+                                </th>
+                            </ng-container>
+                            <td>
+                                <a class="btn btn-sm btn-icon-only text-dark" role="button" aria-haspopup="true"
+                                    aria-expanded="false" [routerLink]="[element.id]">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                            </td>
+                            <td>
+                                <a class="btn btn-sm btn-icon-only text-dark" role="button" aria-haspopup="true"
+                                    aria-expanded="false" (click)="delete(element.id)">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+
+                        <tr *ngIf="elementsPage.length == 0">
+                            <td class="no-data-table" [attr.colspan]="this.cols.length + 2">
+                                No <span style="text-transform: lowercase;">{{title}}</span> to show...
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+
+            <div class="card-footer py-4">
+
+                <div class="row">
+                    <div class="col-sm-12 col-md-5">
+                        <div class="dataTables_info" id="datatable-basic_info" role="status" aria-live="polite">Showing
+                            {{ (pageNumber - 1) * pageSize }} to
+                            {{ (pageNumber - 1) * pageSize + elementsPage.length }} of {{ originalData.length }} entries
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-7">
+                        <div class="dataTables_paginate paging_simple_numbers" id="datatable-basic_paginate">
+                            <ul class="pagination justify-content-end mb-0">
+                                <li class="paginate_button page-item previous" [class.disabled]="pageNumber == 1"
+                                    id="datatable-basic_previous"><a (click)=" previousPage()" class="page-link"><i
+                                            class="fas fa-angle-left"></i></a></li>
+                                <li class="paginate_button page-item active"><a href="#" aria-controls="datatable-basic"
+                                        data-dt-idx="1" tabindex="0" class="page-link">{{ pageNumber }}</a></li>
+                                <li class="paginate_button page-item next" [class.disabled]="pageNumber >= totalPages"
+                                    id="datatable-basic_next"><a (click)="nextPage()" class="page-link"><i
+                                            class="fas fa-angle-right"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
