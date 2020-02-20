@@ -8,9 +8,10 @@ import { PartnersComponent } from "./partners/partners.component";
 import { SharedModule } from "src/app/shared/shared.module";
 import { ProjectsComponent } from './projects/projects.component';
 import { ProductsComponent } from './products/products.component';
+import { AddProductComponent } from './products/add-product/add-product.component';
 
 @NgModule({
-  declarations: [ContentComponent, HomeComponent, PartnersComponent, ProjectsComponent, ProductsComponent],
+  declarations: [ContentComponent, HomeComponent, PartnersComponent, ProjectsComponent, ProductsComponent, AddProductComponent],
   imports: [CommonModule, ContentRoutingModule, SharedModule]
 })
 export class ContentModule {}

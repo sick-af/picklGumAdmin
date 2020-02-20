@@ -5,6 +5,7 @@ import { PartnersComponent } from "./partners/partners.component";
 import { ContentComponent } from "./content.component";
 import { ProjectsComponent } from "./projects/projects.component";
 import { ProductsComponent } from "./products/products.component";
+import { AddProductComponent } from "./products/add-product/add-product.component";
 
 const routes: Routes = [
   {
@@ -27,6 +28,10 @@ const routes: Routes = [
       {
         path: "products",
         component: ProductsComponent
+      },
+      {
+        path: "products/add",
+        component: AddProductComponent
       },
       {
         path: "partners",
