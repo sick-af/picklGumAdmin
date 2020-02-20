@@ -6,9 +6,11 @@ import { ContentComponent } from "./content.component";
 import { HomeComponent } from "./home/home.component";
 import { PartnersComponent } from "./partners/partners.component";
 import { SharedModule } from "src/app/shared/shared.module";
+import { ProjectsComponent } from './projects/projects.component';
+import { ProductsComponent } from './products/products.component';
 
 @NgModule({
-  declarations: [ContentComponent, HomeComponent, PartnersComponent],
+  declarations: [ContentComponent, HomeComponent, PartnersComponent, ProjectsComponent, ProductsComponent],
   imports: [CommonModule, ContentRoutingModule, SharedModule]
 })
 export class ContentModule {}
