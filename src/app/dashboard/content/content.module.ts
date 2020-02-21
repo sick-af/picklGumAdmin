@@ -10,8 +10,12 @@ import { ProjectsComponent } from "./projects/projects.component";
 import { ProductsComponent } from "./products/products.component";
 import { AddProductComponent } from "./products/add-product/add-product.component";
 import { ReactiveFormsModule } from "@angular/forms";
-import { AdminsComponent } from './admins/admins.component';
-import { AddAdminComponent } from './admins/add-admin/add-admin.component';
+import { AdminsComponent } from "./admins/admins.component";
+import { AddAdminComponent } from "./admins/add-admin/add-admin.component";
+import { PartnerTypesComponent } from "./partners/partner-types/partner-types.component";
+import { AddPartnerTypeComponent } from "./partners/partner-types/add-partner-type/add-partner-type.component";
+import { ProjectTypesComponent } from "./projects/project-types/project-types.component";
+import { AddProjectTypeComponent } from "./projects/project-types/add-project-type/add-project-type.component";
 
 @NgModule({
   declarations: [
@@ -22,7 +26,11 @@ import { AddAdminComponent } from './admins/add-admin/add-admin.component';
     ProductsComponent,
     AddProductComponent,
     AdminsComponent,
-    AddAdminComponent
+    AddAdminComponent,
+    PartnerTypesComponent,
+    AddPartnerTypeComponent,
+    ProjectTypesComponent,
+    AddProjectTypeComponent
   ],
   imports: [
     CommonModule,
