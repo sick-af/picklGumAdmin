@@ -3,8 +3,8 @@
 
     <div class="col-md-12" style="padding: 0;">
         <span style="color:red;" *ngIf="message">{{message}}</span>
-        <input #file type="file" accept='image/*' (change)="preview(file.files)" id="imgInp">
+        <input #file type="file" accept='image/*' (change)="preview(file.files)" class="form-control" id="imgInp">
     </div>
 
-    <img id='img-upload' [src]="imgURL" height="200" *ngIf="imgURL" />
+    <img id='img-upload' class="img-preview" [src]="imgURL" height="200" *ngIf="imgURL" />
 </div>

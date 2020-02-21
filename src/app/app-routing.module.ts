@@ -10,7 +10,7 @@ const routes: Routes = [
   },
   {
     path: "dashboard",
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     loadChildren: "./dashboard/dashboard.module#DashboardModule"
   },
   {

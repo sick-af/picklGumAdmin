@@ -1,4 +1,4 @@
-<app-reusable-data-table title="Products" [data]="products" [cols]="cols" [isLoading]="false"
-    (onDelete)="removeProduct($event)">
+<app-reusable-data-table title="Products" [data]="products" [cols]="cols" [isLoading]="isLoading"
+    (onDelete)="delete($event)">
 
 </app-reusable-data-table>

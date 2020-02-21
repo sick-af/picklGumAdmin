@@ -1,4 +1,13 @@
-import { Component, OnInit } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  ElementRef,
+  Input,
+  HostListener
+} from "@angular/core";
+import { MediaService } from "src/app/_services/media/media.service";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { HttpEventType } from "@angular/common/http";
 
 @Component({
   selector: "app-image-upload",
@@ -8,9 +17,14 @@ import { Component, OnInit } from "@angular/core";
 export class ImageUploadComponent implements OnInit {
   public imagePath;
   imgURL: any;
-  public message: string;
+  @Input() progress;
 
-  constructor() {}
+  public files;
+
+  constructor(
+    private host: ElementRef<HTMLInputElement>,
+    public mediaService: MediaService
+  ) {}
 
   ngOnInit() {}
 
@@ -19,7 +33,6 @@ export class ImageUploadComponent implements OnInit {
 
     var mimeType = files[0].type;
     if (mimeType.match(/image\/*/) == null) {
-      this.message = "Only images are supported.";
       return;
     }
 
@@ -29,5 +42,21 @@ export class ImageUploadComponent implements OnInit {
     reader.onload = _event => {
       this.imgURL = reader.result;
     };
+
+    this.files = files[0];
+  }
+
+  async upload() {
+    try {
+      if (this.files == null) {
+        return;
+      }
+      var formData = new FormData();
+      formData.append("file", this.files);
+
+      return this.mediaService.upload(formData);
+    } catch (error) {
+      throw error;
+    }
   }
 }

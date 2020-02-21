@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { AuthService } from "src/app/_services/auth/auth.service";
 import { UtilsService } from "src/app/_services/utils/utils.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-login",
@@ -14,18 +15,17 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private utilsService: UtilsService
+    private utilsService: UtilsService,
+    private router: Router
   ) {}
 
   ngOnInit() {
     this.loginForm = new FormGroup({
-      user: new FormGroup({
-        username: new FormControl(
-          null,
-          Validators.compose([Validators.required])
-        ),
-        password: new FormControl(null, Validators.required)
-      })
+      username: new FormControl(
+        null,
+        Validators.compose([Validators.required])
+      ),
+      password: new FormControl(null, Validators.required)
     });
     this.isLoading = false;
   }
@@ -34,8 +34,11 @@ export class LoginComponent implements OnInit {
     this.isLoading = true;
 
     try {
-      let response = await this.authService.login(this.loginForm.value);
+      await this.authService.login(this.loginForm.value);
+      this.utilsService.handleSuccess("You've successfully logged in");
+      this.router.navigate(["/dashboard/"], {});
     } catch (err) {
+      this.utilsService.forwardErrorMessage("Wrong credentials");
       console.log(err);
     }
 

@@ -34,6 +34,10 @@ const routes: Routes = [
         component: AddProductComponent
       },
       {
+        path: "products/:id",
+        component: AddProductComponent
+      },
+      {
         path: "partners",
         component: PartnersComponent
       }

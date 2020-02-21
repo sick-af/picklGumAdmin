@@ -33,7 +33,12 @@
 
 
             <div class="table-responsive">
-                <table class="table align-items-center table-flush">
+
+                <div *ngIf="isLoading == true" class="table-loading">
+                    <app-progress-spinner></app-progress-spinner>
+                </div>
+
+                <table *ngIf="isLoading == false" class="table align-items-center table-flush">
                     <thead class="thead-light">
                         <tr>
                             <ng-container *ngFor="let col of cols; let i = index">
@@ -47,7 +52,9 @@
 
                         </tr>
                     </thead>
+
                     <tbody>
+
                         <tr *ngFor="let element of elementsPage; let i = index">
                             <ng-container *ngFor="let col of cols; let i = index">
                                 <th *ngIf="col.visible == true">

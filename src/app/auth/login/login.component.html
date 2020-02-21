@@ -8,38 +8,32 @@
             <app-progress-spinner *ngIf="isLoading==true">
             </app-progress-spinner>
 
-            <form *ngIf="isLoading == false" class="form-horizontal" [formGroup]="loginForm" (submit)="submit()">
 
-                <!-- Text input-->
-                <div class="form-group" formGroupName="user">
-                    <label class="col-md-4 control-label" for="username">Username</label>
-                    <div class="col-md-12">
-                        <input id="username" name="username" formControlName="username" type="text"
-                            placeholder="Username" class="form-control input-md">
-
+            <form role="form" *ngIf="isLoading == false" [formGroup]="loginForm" (submit)="submit()">
+                <div class="form-group mb-3">
+                    <div class="input-group input-group-alternative">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                        </div>
+                        <input class="form-control" style="padding: 0 10px;" placeholder="Username"
+                            formControlName="username" type="text">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group input-group-alternative">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                        </div>
+                        <input class="form-control" style="padding: 0 10px;" placeholder="Password"
+                            formControlName="password" type="password">
                     </div>
                 </div>
 
-                <!-- Password input-->
-                <div class="form-group" formGroupName="user">
-                    <label class="col-md-4 control-label" for="password">Password</label>
-                    <div class="col-md-12">
-                        <input id="password" name="password" formControlName="password" type="password"
-                            placeholder="Password" class="form-control input-md" required="">
-
-                    </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary my-4 login-btn" [disabled]="loginForm.invalid">Sign
+                        in</button>
                 </div>
-
-                <!-- Button -->
-                <div class="form-group" style="text-align: -webkit-center;">
-                    <div class="col-md-6">
-                        <button id="login" name="login" class="btn btn-primary"
-                            [disabled]="loginForm.invalid">Login</button>
-                    </div>
-                </div>
-
             </form>
-
 
         </div>
     </div>
