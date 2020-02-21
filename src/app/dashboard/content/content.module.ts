@@ -10,6 +10,8 @@ import { ProjectsComponent } from "./projects/projects.component";
 import { ProductsComponent } from "./products/products.component";
 import { AddProductComponent } from "./products/add-product/add-product.component";
 import { ReactiveFormsModule } from "@angular/forms";
+import { AdminsComponent } from './admins/admins.component';
+import { AddAdminComponent } from './admins/add-admin/add-admin.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { ReactiveFormsModule } from "@angular/forms";
     PartnersComponent,
     ProjectsComponent,
     ProductsComponent,
-    AddProductComponent
+    AddProductComponent,
+    AdminsComponent,
+    AddAdminComponent
   ],
   imports: [
     CommonModule,
