@@ -54,7 +54,7 @@ export class AddAdminComponent implements OnInit {
       }
       this.location.back();
     } catch (error) {
-      this.utilsService.forwardErrorMessage("Failed to save to admin.");
+      this.utilsService.forwardErrorMessage("Failed to save admin.");
     }
   }
 }

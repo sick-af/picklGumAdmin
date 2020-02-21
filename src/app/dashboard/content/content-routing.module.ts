@@ -12,6 +12,7 @@ import { PartnerTypesComponent } from "./partners/partner-types/partner-types.co
 import { AddPartnerTypeComponent } from "./partners/partner-types/add-partner-type/add-partner-type.component";
 import { ProjectTypesComponent } from "./projects/project-types/project-types.component";
 import { AddProjectTypeComponent } from "./projects/project-types/add-project-type/add-project-type.component";
+import { AddPartnerComponent } from "./partners/add-partner/add-partner.component";
 
 const routes: Routes = [
   {
@@ -58,6 +59,14 @@ const routes: Routes = [
       {
         path: "partners",
         component: PartnersComponent
+      },
+      {
+        path: "partners/add",
+        component: AddPartnerComponent
+      },
+      {
+        path: "partners/:id",
+        component: AddPartnerComponent
       },
       {
         path: "partner-types",

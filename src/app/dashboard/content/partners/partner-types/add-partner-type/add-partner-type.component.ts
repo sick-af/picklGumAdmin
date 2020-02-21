@@ -60,7 +60,7 @@ export class AddPartnerTypeComponent implements OnInit {
       }
       this.location.back();
     } catch (error) {
-      this.utilsService.forwardErrorMessage("Failed to save to partnerType.");
+      this.utilsService.forwardErrorMessage("Failed to save partner type.");
     }
   }
 }

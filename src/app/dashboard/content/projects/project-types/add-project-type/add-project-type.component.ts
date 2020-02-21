@@ -60,7 +60,7 @@ export class AddProjectTypeComponent implements OnInit {
       }
       this.location.back();
     } catch (error) {
-      this.utilsService.forwardErrorMessage("Failed to save to projectType.");
+      this.utilsService.forwardErrorMessage("Failed to save project type.");
     }
   }
 }

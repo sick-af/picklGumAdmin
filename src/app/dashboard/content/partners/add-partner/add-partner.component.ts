@@ -2,54 +2,60 @@ import { Component, OnInit, ViewChild, ViewChildren } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { UtilsService } from "src/app/_services/utils/utils.service";
 import { ImageUploadComponent } from "src/app/shared/image-upload/image-upload.component";
-import { ProductService } from "src/app/_services/db/product.service";
+import { PartnerService } from "src/app/_services/db/partner.service";
 import { Location } from "@angular/common";
 import { ActivatedRoute } from "@angular/router";
 import { MultipleImageUploadComponent } from "src/app/shared/multiple-image-upload/multiple-image-upload.component";
+import { PartnerTypeService } from "src/app/_services/db/partner-type.service";
 
 @Component({
-  selector: "app-add-product",
-  templateUrl: "./add-product.component.html",
-  styleUrls: ["./add-product.component.scss"]
+  selector: "app-add-partner",
+  templateUrl: "./add-partner.component.html",
+  styleUrls: ["./add-partner.component.scss"]
 })
-export class AddProductComponent implements OnInit {
-  public productId;
-  public productForm: FormGroup;
+export class AddPartnerComponent implements OnInit {
+  public partnerId;
+  public partnerForm: FormGroup;
+  public partnerTypes;
 
   @ViewChild("displayPicture", { static: false })
   displayPicture: ImageUploadComponent;
 
-  @ViewChild("pictures", { static: false })
-  pictures: MultipleImageUploadComponent;
-
   constructor(
     private utilsService: UtilsService,
-    private productService: ProductService,
+    private partnerService: PartnerService,
+    private partnerTypeService: PartnerTypeService,
     private location: Location,
     private route: ActivatedRoute
   ) {
-    this.productId = this.route.snapshot.paramMap["params"]["id"];
-    this.productForm = new FormGroup({
+    this.partnerId = this.route.snapshot.paramMap["params"]["id"];
+    this.partnerForm = new FormGroup({
       name: new FormControl(null, Validators.required),
       description: new FormControl(null, Validators.required),
       displayPicture: new FormControl(""),
-      pictures: new FormControl([])
+      partnerTypeId: new FormControl(null, Validators.required)
     });
   }
 
   ngOnInit() {
     this.fetch();
+    this.fetchPartnerTypes();
   }
 
   async fetch() {
-    if (this.productId) {
-      let response = await this.productService.getProduct(this.productId);
-      this.productForm.patchValue(response["product"]);
+    if (this.partnerId) {
+      let response = await this.partnerService.getPartner(this.partnerId);
+      this.partnerForm.patchValue(response["partner"]);
     }
   }
 
+  async fetchPartnerTypes() {
+    let response = await this.partnerTypeService.getPartnerTypes();
+    this.partnerTypes = response["partnerTypes"];
+  }
+
   async submit() {
-    if (this.productForm.invalid) {
+    if (this.partnerForm.invalid) {
       this.utilsService.forwardErrorMessage(
         "Failed to save because some fields are empty."
       );
@@ -59,7 +65,7 @@ export class AddProductComponent implements OnInit {
     try {
       let displayPicture = await this.displayPicture.upload();
       if (displayPicture != null) {
-        this.productForm.patchValue({ displayPicture: displayPicture });
+        this.partnerForm.patchValue({ displayPicture: displayPicture });
       }
     } catch (error) {
       this.utilsService.forwardErrorMessage(
@@ -68,26 +74,17 @@ export class AddProductComponent implements OnInit {
     }
 
     try {
-      let pictures = await this.pictures.upload();
-      if (pictures != null) {
-        this.productForm.patchValue({ pictures: pictures });
-      }
-    } catch (error) {
-      this.utilsService.forwardErrorMessage("Failed to upload the pictures.");
-    }
-
-    try {
-      if (this.productId) {
-        await this.productService.updateProduct(
-          this.productId,
-          this.productForm.value
+      if (this.partnerId) {
+        await this.partnerService.updatePartner(
+          this.partnerId,
+          this.partnerForm.value
         );
       } else {
-        await this.productService.addProduct(this.productForm.value);
+        await this.partnerService.addPartner(this.partnerForm.value);
       }
       this.location.back();
     } catch (error) {
-      this.utilsService.forwardErrorMessage("Failed to save product.");
+      this.utilsService.forwardErrorMessage("Failed to save partner.");
     }
   }
 }
