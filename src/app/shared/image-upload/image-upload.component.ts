@@ -16,15 +16,12 @@ import { HttpEventType } from "@angular/common/http";
 })
 export class ImageUploadComponent implements OnInit {
   public imagePath;
-  imgURL: any;
+  @Input() imgURL: any;
   @Input() progress;
 
   public files;
 
-  constructor(
-    private host: ElementRef<HTMLInputElement>,
-    public mediaService: MediaService
-  ) {}
+  constructor(public mediaService: MediaService) {}
 
   ngOnInit() {}
 
@@ -52,9 +49,9 @@ export class ImageUploadComponent implements OnInit {
         return;
       }
       var formData = new FormData();
-      formData.append("file", this.files);
-
-      return this.mediaService.upload(formData);
+      formData.append("files", this.files);
+      let response = await this.mediaService.upload(formData);
+      return response["body"]["pictures"][0]["url"];
     } catch (error) {
       throw error;
     }

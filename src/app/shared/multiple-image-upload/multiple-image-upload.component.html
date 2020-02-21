@@ -1,0 +1,15 @@
+<div class="form-group">
+    <label>Multiple Image Upload</label>
+
+    <div class="col-md-12" style="padding: 0;">
+        <span style="color:red;" *ngIf="message">{{message}}</span>
+        <input #file type="file" accept='image/*' (change)="preview(file.files)" class="form-control" id="imgInp"
+            multiple>
+    </div>
+
+    <div class="multi-image-preview">
+        <ng-container *ngFor="let image of this.images; let index;">
+            <img class="img-preview" [src]="image.url" height="75" />
+        </ng-container>
+    </div>
+</div>

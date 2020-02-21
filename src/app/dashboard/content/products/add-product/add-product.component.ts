@@ -4,6 +4,8 @@ import { UtilsService } from "src/app/_services/utils/utils.service";
 import { ImageUploadComponent } from "src/app/shared/image-upload/image-upload.component";
 import { ProductService } from "src/app/_services/db/product.service";
 import { Location } from "@angular/common";
+import { ActivatedRoute } from "@angular/router";
+import { MultipleImageUploadComponent } from "src/app/shared/multiple-image-upload/multiple-image-upload.component";
 
 @Component({
   selector: "app-add-product",
@@ -11,26 +13,40 @@ import { Location } from "@angular/common";
   styleUrls: ["./add-product.component.scss"]
 })
 export class AddProductComponent implements OnInit {
-  constructor(
-    private utilsService: UtilsService,
-    private productService: ProductService,
-    private location: Location
-  ) {}
-
-  public productForm: FormGroup = new FormGroup({
-    name: new FormControl(null, Validators.required),
-    description: new FormControl(null, Validators.required),
-    displayPicture: new FormControl(""),
-    pictures: new FormControl([])
-  });
+  public productId;
+  public productForm: FormGroup;
 
   @ViewChild("displayPicture", { static: false })
   displayPicture: ImageUploadComponent;
 
   @ViewChild("pictures", { static: false })
-  pictures: ImageUploadComponent;
+  pictures: MultipleImageUploadComponent;
 
-  ngOnInit() {}
+  constructor(
+    private utilsService: UtilsService,
+    private productService: ProductService,
+    private location: Location,
+    private route: ActivatedRoute
+  ) {
+    this.productId = this.route.snapshot.paramMap["params"]["id"];
+    this.productForm = new FormGroup({
+      name: new FormControl(null, Validators.required),
+      description: new FormControl(null, Validators.required),
+      displayPicture: new FormControl(""),
+      pictures: new FormControl([])
+    });
+  }
+
+  ngOnInit() {
+    this.fetch();
+  }
+
+  async fetch() {
+    if (this.productId) {
+      let response = await this.productService.getProduct(this.productId);
+      this.productForm.patchValue(response["product"]);
+    }
+  }
 
   async submit() {
     if (this.productForm.invalid) {
@@ -61,7 +77,14 @@ export class AddProductComponent implements OnInit {
     }
 
     try {
-      this.productService.addProduct(this.productForm.value);
+      if (this.productId) {
+        await this.productService.updateProduct(
+          this.productId,
+          this.productForm.value
+        );
+      } else {
+        await this.productService.addProduct(this.productForm.value);
+      }
       this.location.back();
     } catch (error) {
       this.utilsService.forwardErrorMessage("Failed to save to product.");
