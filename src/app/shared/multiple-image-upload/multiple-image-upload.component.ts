@@ -35,7 +35,7 @@ export class MultipleImageUploadComponent implements OnInit {
   fileToDataURL(file) {
     var reader = new FileReader();
     return new Promise(function(resolve, reject) {
-      reader.onload = function(event) {
+      reader.onload = function(event: any) {
         resolve(event.target.result);
       };
       reader.readAsDataURL(file);
