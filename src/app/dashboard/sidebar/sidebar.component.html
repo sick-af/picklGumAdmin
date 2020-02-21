@@ -75,37 +75,73 @@
                 <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
                     <a class="nav-link " routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
                         [routerLink]="['home']">
-                        <i class="ni ni-tv-2 text-primary"></i> Dashboard
+                        <i class="ni ni-chart-bar-32 text-primary"></i> Dashboard
                     </a>
                 </li>
 
                 <li class="nav-item" routerLinkActive="menu-active" [routerLinkActiveOptions]="{ exact: true }">
                     <a class="nav-link " [routerLink]="['admins']" routerLinkActive="active"
                         [routerLinkActiveOptions]="{ exact: true }">
-                        <i class="ni ni-tv-2 text-primary"></i> Admins
+                        <i class="ni ni-circle-08 text-primary"></i> Admins
                     </a>
                 </li>
 
-                <li class="nav-item" routerLinkActive="menu-active" [routerLinkActiveOptions]="{ exact: true }">
-                    <a class="nav-link " [routerLink]="['projects']" routerLinkActive="active"
-                        [routerLinkActiveOptions]="{ exact: true }">
-                        <i class="ni ni-tv-2 text-primary"></i> Projects
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#projects" data-toggle="collapse" role="button"
+                        aria-expanded="false" aria-controls="navbar-components">
+                        <i class="ni ni-building text-primary"></i>
+                        <span class="nav-link-text">Projects</span>
                     </a>
+                    <div class="collapse" id="projects">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item" routerLinkActive="menu-active"
+                                [routerLinkActiveOptions]="{ exact: true }">
+                                <a [routerLink]="['projects']" routerLinkActive="active" class="nav-link">
+                                    <span class="sidenav-normal"> Projects </span>
+                                </a>
+                            </li>
+                            <li class="nav-item" routerLinkActive="menu-active"
+                                [routerLinkActiveOptions]="{ exact: true }">
+                                <a [routerLink]="['project-types']" routerLinkActive="active" class="nav-link">
+                                    <span class="sidenav-normal"> Project Types </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#partners" data-toggle="collapse" role="button"
+                        aria-expanded="false" aria-controls="navbar-components">
+                        <i class="ni ni-books text-primary"></i>
+                        <span class="nav-link-text">Partners</span>
+                    </a>
+                    <div class="collapse" id="partners">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item" routerLinkActive="menu-active"
+                                [routerLinkActiveOptions]="{ exact: true }">
+                                <a [routerLink]="['partners']" routerLinkActive="active" class="nav-link">
+                                    <span class="sidenav-normal"> Partners </span>
+                                </a>
+                            </li>
+                            <li class="nav-item" routerLinkActive="menu-active"
+                                [routerLinkActiveOptions]="{ exact: true }">
+                                <a [routerLink]="['partner-types']" routerLinkActive="active" class="nav-link">
+                                    <span class="sidenav-normal"> Partners Types </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
 
                 <li class="nav-item" routerLinkActive="menu-active" [routerLinkActiveOptions]="{ exact: true }">
                     <a class="nav-link " [routerLink]="['products']" routerLinkActive="active"
                         [routerLinkActiveOptions]="{ exact: true }">
-                        <i class="ni ni-tv-2 text-primary"></i> Products
+                        <i class="ni ni-image text-primary"></i> Products
                     </a>
                 </li>
 
-                <li class="nav-item" routerLinkActive="menu-active" [routerLinkActiveOptions]="{ exact: true }">
-                    <a class="nav-link " [routerLink]="['partners']" routerLinkActive="active"
-                        [routerLinkActiveOptions]="{ exact: true }">
-                        <i class="ni ni-tv-2 text-primary"></i> Partners
-                    </a>
-                </li>
+
             </ul>
         </div>
     </div>
