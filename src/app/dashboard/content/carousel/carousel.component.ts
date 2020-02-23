@@ -47,7 +47,9 @@ export class CarouselComponent implements OnInit {
 
     try {
       await this.carouselService.update(this.carouselForm.value);
-      this.location.back();
+      this.utilsService.handleSuccess("Successfully updated your Carousel");
+
+      await this.fetch();
     } catch (error) {
       this.utilsService.forwardErrorMessage("Failed to save carousel.");
     }

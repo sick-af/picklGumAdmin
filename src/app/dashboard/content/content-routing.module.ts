@@ -15,6 +15,7 @@ import { AddProjectTypeComponent } from "./projects/project-types/add-project-ty
 import { AddPartnerComponent } from "./partners/add-partner/add-partner.component";
 import { AddProjectComponent } from "./projects/add-project/add-project.component";
 import { CarouselComponent } from "./carousel/carousel.component";
+import { AboutUsComponent } from "./about-us/about-us.component";
 
 const routes: Routes = [
   {
@@ -45,6 +46,10 @@ const routes: Routes = [
       {
         path: "carousel",
         component: CarouselComponent
+      },
+      {
+        path: "about-us",
+        component: AboutUsComponent
       },
       {
         path: "projects",
