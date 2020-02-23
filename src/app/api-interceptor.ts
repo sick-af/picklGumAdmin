@@ -26,9 +26,9 @@ export class ApiInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): any {
-    // localStorage.removeItem("token");
-    // localStorage.removeItem("admin");
-    // window.location.href = "/";
+    localStorage.removeItem("token");
+    localStorage.removeItem("admin");
+    window.location.href = "/";
     return of(err.message);
   }
 
@@ -61,6 +61,7 @@ export class ApiInterceptor implements HttpInterceptor {
       map(data => data),
       catchError((error, caught) => {
         if (error.status === 401) {
+          console.log("LALALALAL");
           const errTHROW = this.handleAuthError(error, req, next);
           return errTHROW;
         } else {

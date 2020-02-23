@@ -32,6 +32,11 @@ export class MultipleImageUploadComponent implements OnInit {
     );
   }
 
+  delete(image) {
+    const index = this.images.indexOf(image);
+    this.images.splice(index, 1);
+  }
+
   fileToDataURL(file) {
     var reader = new FileReader();
     return new Promise(function(resolve, reject) {
@@ -44,8 +49,8 @@ export class MultipleImageUploadComponent implements OnInit {
 
   async upload() {
     try {
-      if (this.files == null) {
-        return;
+      if (this.files == null || this.files.length == 0) {
+        return this.images;
       }
 
       var formData = new FormData();

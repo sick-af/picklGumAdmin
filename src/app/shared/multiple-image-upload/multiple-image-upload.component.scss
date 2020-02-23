@@ -8,3 +8,21 @@
 .img-preview {
   padding: 5px;
 }
+
+.img-wrapper {
+  position: relative;
+  display: inline-block;
+}
+.close:before {
+  content: "✕";
+}
+.close {
+  position: absolute;
+  top: -7px;
+  padding: 8px;
+  font-size: unset;
+  border-radius: 50px;
+  background-color: red;
+  color: white;
+  right: 0;
+}

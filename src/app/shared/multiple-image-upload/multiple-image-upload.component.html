@@ -9,7 +9,11 @@
 
     <div class="multi-image-preview">
         <ng-container *ngFor="let image of this.images; let index;">
-            <img class="img-preview" [src]="image.url" height="75" />
+
+            <div class="img-wrapper">
+                <img class="img-preview" [src]="image.url" height="75" />
+                <span class="close" (click)="delete(image)"></span>
+            </div>
         </ng-container>
     </div>
 </div>
