@@ -16,7 +16,8 @@ import { PartnerTypesComponent } from "./partners/partner-types/partner-types.co
 import { AddPartnerTypeComponent } from "./partners/partner-types/add-partner-type/add-partner-type.component";
 import { ProjectTypesComponent } from "./projects/project-types/project-types.component";
 import { AddProjectTypeComponent } from "./projects/project-types/add-project-type/add-project-type.component";
-import { AddPartnerComponent } from './partners/add-partner/add-partner.component';
+import { AddPartnerComponent } from "./partners/add-partner/add-partner.component";
+import { AddProjectComponent } from "./projects/add-project/add-project.component";
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { AddPartnerComponent } from './partners/add-partner/add-partner.componen
     AddPartnerTypeComponent,
     ProjectTypesComponent,
     AddProjectTypeComponent,
-    AddPartnerComponent
+    AddPartnerComponent,
+    AddProjectComponent
   ],
   imports: [
     CommonModule,
