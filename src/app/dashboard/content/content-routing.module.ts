@@ -14,6 +14,7 @@ import { ProjectTypesComponent } from "./projects/project-types/project-types.co
 import { AddProjectTypeComponent } from "./projects/project-types/add-project-type/add-project-type.component";
 import { AddPartnerComponent } from "./partners/add-partner/add-partner.component";
 import { AddProjectComponent } from "./projects/add-project/add-project.component";
+import { CarouselComponent } from "./carousel/carousel.component";
 
 const routes: Routes = [
   {
@@ -40,6 +41,10 @@ const routes: Routes = [
       {
         path: "admins/:id",
         component: AddAdminComponent
+      },
+      {
+        path: "carousel",
+        component: CarouselComponent
       },
       {
         path: "projects",

@@ -18,6 +18,8 @@ import { ProjectTypesComponent } from "./projects/project-types/project-types.co
 import { AddProjectTypeComponent } from "./projects/project-types/add-project-type/add-project-type.component";
 import { AddPartnerComponent } from "./partners/add-partner/add-partner.component";
 import { AddProjectComponent } from "./projects/add-project/add-project.component";
+import { AboutUsComponent } from './about-us/about-us.component';
+import { CarouselComponent } from './carousel/carousel.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { AddProjectComponent } from "./projects/add-project/add-project.componen
     ProjectTypesComponent,
     AddProjectTypeComponent,
     AddPartnerComponent,
-    AddProjectComponent
+    AddProjectComponent,
+    AboutUsComponent,
+    CarouselComponent
   ],
   imports: [
     CommonModule,
