@@ -13,7 +13,9 @@ export class SidebarComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
-    this.username = this.authService.admin.username;
+    this.authService.adminValue.subscribe(admin => {
+      this.username = admin.username;
+    });
   }
 
   async logout() {

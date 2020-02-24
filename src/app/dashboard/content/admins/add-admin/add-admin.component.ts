@@ -4,6 +4,7 @@ import { UtilsService } from "src/app/_services/utils/utils.service";
 import { AdminService } from "src/app/_services/db/admin.service";
 import { ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
+import { AuthService } from "src/app/_services/auth/auth.service";
 
 @Component({
   selector: "app-add-admin",
@@ -18,7 +19,8 @@ export class AddAdminComponent implements OnInit {
     private utilsService: UtilsService,
     private adminService: AdminService,
     private location: Location,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private authService: AuthService
   ) {
     this.adminId = this.route.snapshot.paramMap["params"]["id"];
     this.adminForm = new FormGroup({
@@ -49,11 +51,17 @@ export class AddAdminComponent implements OnInit {
     try {
       if (this.adminId) {
         await this.adminService.updateAdmin(this.adminId, this.adminForm.value);
+
+        const id = await this.authService.getAdminId();
+        if (id && this.adminId.toString() == id.toString()) {
+          await this.authService.refresh();
+        }
       } else {
         await this.adminService.addAdmin(this.adminForm.value);
       }
       this.location.back();
     } catch (error) {
+      console.log(error);
       this.utilsService.forwardErrorMessage("Failed to save admin.");
     }
   }
