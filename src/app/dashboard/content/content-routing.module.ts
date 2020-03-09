@@ -24,13 +24,13 @@ const routes: Routes = [
     children: [
       {
         path: "",
-        redirectTo: "home",
+        redirectTo: "admins",
         pathMatch: "full"
       },
-      {
-        path: "home",
-        component: HomeComponent
-      },
+      // {
+      //   path: "home",
+      //   component: HomeComponent
+      // },
       {
         path: "admins",
         component: AdminsComponent

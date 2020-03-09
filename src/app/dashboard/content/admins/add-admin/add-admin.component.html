@@ -8,11 +8,12 @@
                         <div class="form-group focused">
                             <label class="form-control-label" for="input-username">Username</label>
                             <input type="text" id="input-username" class="form-control form-control-alternative"
-                                placeholder="Username" formControlName="username" value="">
+                                placeholder="Username" formControlName="username" value=""
+                                [readonly]="this.adminId != null">
                         </div>
                     </div>
 
-                    <div class="col-lg-12">
+                    <div class="col-lg-12" *ngIf="this.adminId == null">
                         <div class="form-group focused">
                             <label>Password</label>
                             <input type="password" id="input-password" class="form-control form-control-alternative"
@@ -28,7 +29,8 @@
 
 
             <div class="row col justify-content-end save-button">
-                <button class="btn btn-icon btn-3 btn-primary" type="button" (click)="submit()">
+                <button class="btn btn-icon btn-3 btn-primary" type="button" (click)="submit()"
+                    [disabled]="this.adminId != null">
                     <span class="btn-inner--icon"><i class="ni ni-bag-17"></i></span>
 
                     <span class="btn-inner--text">SAVE</span>
