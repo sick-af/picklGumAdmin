@@ -34,17 +34,17 @@ export class AddProjectComponent implements OnInit {
     this.projectId = this.route.snapshot.paramMap["params"]["id"];
     this.projectForm = new FormGroup({
       name: new FormControl(null, Validators.required),
-      description: new FormControl(null, Validators.required),
+      description: new FormControl(null),
       projectTypeId: new FormControl(null, Validators.required),
 
       location: new FormControl(null, Validators.required),
-      owner: new FormControl(null, Validators.required),
-      consultant: new FormControl(null, Validators.required),
-      supervision: new FormControl(null, Validators.required),
-      contractor: new FormControl(null, Validators.required),
-      developingYear: new FormControl(null, Validators.required),
-      cost: new FormControl(null, Validators.required),
-      scope: new FormControl(null, Validators.required),
+      owner: new FormControl(null),
+      consultant: new FormControl(null),
+      supervision: new FormControl(null),
+      contractor: new FormControl(null),
+      developingYear: new FormControl(null),
+      cost: new FormControl(null),
+      scope: new FormControl(null),
 
       displayPicture: new FormControl(""),
       pictures: new FormControl([])
