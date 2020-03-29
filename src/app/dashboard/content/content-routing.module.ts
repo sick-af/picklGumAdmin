@@ -18,6 +18,7 @@ import { CarouselComponent } from "./carousel/carousel.component";
 import { AboutUsComponent } from "./about-us/about-us.component";
 import { CareersComponent } from "./careers/careers.component";
 import { AddCareerComponent } from "./careers/add-career/add-career.component";
+import { ApplicationsComponent } from "./applications/applications.component";
 
 const routes: Routes = [
   {
@@ -125,6 +126,10 @@ const routes: Routes = [
       {
         path: "careers/:id",
         component: AddCareerComponent
+      },
+      {
+        path: "applications",
+        component: ApplicationsComponent
       }
     ]
   }

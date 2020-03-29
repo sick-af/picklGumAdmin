@@ -160,7 +160,12 @@
                         <i class="ni ni-briefcase-24 text-primary"></i> Careers
                     </a>
                 </li>
-
+                <li class="nav-item" routerLinkActive="menu-active" [routerLinkActiveOptions]="{ exact: true }">
+                    <a class="nav-link " [routerLink]="['applications']" routerLinkActive="active"
+                        [routerLinkActiveOptions]="{ exact: true }">
+                        <i class="ni ni-single-copy-04 text-primary"></i> Applications
+                    </a>
+                </li>
             </ul>
         </div>
     </div>

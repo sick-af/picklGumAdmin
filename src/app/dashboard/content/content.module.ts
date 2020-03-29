@@ -22,6 +22,7 @@ import { AboutUsComponent } from './about-us/about-us.component';
 import { CarouselComponent } from './carousel/carousel.component';
 import { CareersComponent } from './careers/careers.component';
 import { AddCareerComponent } from './careers/add-career/add-career.component';
+import { ApplicationsComponent } from './applications/applications.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { AddCareerComponent } from './careers/add-career/add-career.component';
     AboutUsComponent,
     CarouselComponent,
     CareersComponent,
-    AddCareerComponent
+    AddCareerComponent,
+    ApplicationsComponent
   ],
   imports: [
     CommonModule,

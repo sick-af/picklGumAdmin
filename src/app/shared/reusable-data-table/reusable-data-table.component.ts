@@ -28,6 +28,12 @@ export class ReusableDataTableComponent implements OnInit {
   @Input()
   cols: any;
 
+  @Input()
+  disableAdd: any;
+
+  @Input()
+  disableEdit: any;
+
   @Output() onDelete: EventEmitter<any> = new EventEmitter();
 
   public numberOfCols = 4;

@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col">
 
-        <div class="row col justify-content-end add-button">
+        <div class="row col justify-content-end add-button" *ngIf="disableAdd != true">
             <button class="btn btn-icon btn-3 btn-primary" type="button" [routerLink]="['add']">
                 <span class="btn-inner--icon"><i class="ni ni-bag-17"></i></span>
 
@@ -47,7 +47,7 @@
                                 </th>
                             </ng-container>
 
-                            <th scope="col">Edit</th>
+                            <th *ngIf="disableEdit != true" scope="col">Edit</th>
                             <th scope="col">Delete</th>
 
                         </tr>
@@ -57,11 +57,13 @@
 
                         <tr *ngFor="let element of elementsPage; let i = index">
                             <ng-container *ngFor="let col of cols; let i = index">
-                                <th *ngIf="col.visible == true">
-                                    {{ element[col.value] }}
+                                <th *ngIf="col.visible == true" style="max-width: 250px;">
+                                    <span>
+                                        {{ element[col.value] }}
+                                    </span>
                                 </th>
                             </ng-container>
-                            <td>
+                            <td *ngIf="disableEdit != true">
                                 <a class="btn btn-sm btn-icon-only text-dark" role="button" aria-haspopup="true"
                                     aria-expanded="false" [routerLink]="[element.id]">
                                     <i class="fas fa-edit"></i>
@@ -101,7 +103,7 @@
                                 <li class="paginate_button page-item previous" [class.disabled]="pageNumber == 1"
                                     id="datatable-basic_previous"><a (click)=" previousPage()" class="page-link"><i
                                             class="fas fa-angle-left"></i></a></li>
-                                <li class="paginate_button page-item active"><a href="#" aria-controls="datatable-basic"
+                                <li class="paginate_button page-item active"><a aria-controls="datatable-basic"
                                         data-dt-idx="1" tabindex="0" class="page-link">{{ pageNumber }}</a></li>
                                 <li class="paginate_button page-item next" [class.disabled]="pageNumber >= totalPages"
                                     id="datatable-basic_next"><a (click)="nextPage()" class="page-link"><i
