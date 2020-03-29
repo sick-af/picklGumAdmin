@@ -16,6 +16,8 @@ import { AddPartnerComponent } from "./partners/add-partner/add-partner.componen
 import { AddProjectComponent } from "./projects/add-project/add-project.component";
 import { CarouselComponent } from "./carousel/carousel.component";
 import { AboutUsComponent } from "./about-us/about-us.component";
+import { CareersComponent } from "./careers/careers.component";
+import { AddCareerComponent } from "./careers/add-career/add-career.component";
 
 const routes: Routes = [
   {
@@ -111,6 +113,18 @@ const routes: Routes = [
       {
         path: "project-types/:id",
         component: AddProjectTypeComponent
+      },
+      {
+        path: "careers",
+        component: CareersComponent
+      },
+      {
+        path: "careers/add",
+        component: AddCareerComponent
+      },
+      {
+        path: "careers/:id",
+        component: AddCareerComponent
       }
     ]
   }
