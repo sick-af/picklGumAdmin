@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { SweetAlertService } from "src/app/_services/utils/sweet-alert.service";
 
 @Component({
   selector: "app-reusable-data-table",
@@ -45,7 +46,7 @@ export class ReusableDataTableComponent implements OnInit {
   public pageSize = 10;
   public count = 0;
 
-  constructor() {}
+  constructor(private swalService: SweetAlertService) {}
 
   ngOnInit() {}
 
@@ -122,7 +123,8 @@ export class ReusableDataTableComponent implements OnInit {
     this.elementsInPage();
   }
 
-  delete(id: any) {
-    this.onDelete.emit(id);
+  async delete(id: any) {
+    let response = await this.swalService.triggerAlert();
+    if (response.value) this.onDelete.emit(id);
   }
 }

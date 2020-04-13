@@ -150,7 +150,10 @@
 
 
             <div class="row col justify-content-end save-button">
-                <button class="btn btn-icon btn-3 btn-primary" type="button" (click)="submit()">
+                <div *ngIf="isLoading == true" class="table-loading">
+                    <app-progress-spinner></app-progress-spinner>
+                </div>
+                <button *ngIf="!isLoading" class="btn btn-icon btn-3 btn-primary" type="button" (click)="submit()">
                     <span class="btn-inner--icon"><i class="ni ni-bag-17"></i></span>
 
                     <span class="btn-inner--text">SAVE</span>

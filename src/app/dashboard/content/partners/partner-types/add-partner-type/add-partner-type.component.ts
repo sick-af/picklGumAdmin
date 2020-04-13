@@ -13,6 +13,7 @@ import { Location } from "@angular/common";
 export class AddPartnerTypeComponent implements OnInit {
   public partnerTypeId;
   public partnerTypeForm: FormGroup;
+  public isLoading = false;
 
   constructor(
     private utilsService: UtilsService,
@@ -47,6 +48,8 @@ export class AddPartnerTypeComponent implements OnInit {
       return;
     }
 
+    this.isLoading = true;
+
     try {
       if (this.partnerTypeId) {
         await this.partnerTypeService.updatePartnerType(
@@ -62,5 +65,6 @@ export class AddPartnerTypeComponent implements OnInit {
     } catch (error) {
       this.utilsService.forwardErrorMessage("Failed to save partner type.");
     }
+    this.isLoading = false;
   }
 }

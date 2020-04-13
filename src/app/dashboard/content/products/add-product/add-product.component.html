@@ -50,13 +50,9 @@
             <hr class="my-4">
 
 
-            <div class="row col justify-content-end save-button">
-                <button class="btn btn-icon btn-3 btn-primary" type="button" (click)="submit()">
-                    <span class="btn-inner--icon"><i class="ni ni-bag-17"></i></span>
+            <app-save-button (onSubmit)="submit()" [isLoading]="isLoading">
 
-                    <span class="btn-inner--text">SAVE</span>
-                </button>
-            </div>
+            </app-save-button>
         </form>
     </ng-container>
 </app-reusable-input-form>

@@ -51,7 +51,7 @@ export class ImageUploadComponent implements OnInit {
       var formData = new FormData();
       formData.append("files", this.files);
       let response = await this.mediaService.upload(formData);
-      return response["body"]["pictures"][0]["url"];
+      return response["body"]["files"][0]["url"];
     } catch (error) {
       throw error;
     }

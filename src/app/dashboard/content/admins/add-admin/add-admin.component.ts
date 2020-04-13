@@ -14,6 +14,7 @@ import { AuthService } from "src/app/_services/auth/auth.service";
 export class AddAdminComponent implements OnInit {
   public adminId;
   public adminForm: FormGroup;
+  public isLoading = false;
 
   constructor(
     private utilsService: UtilsService,
@@ -47,6 +48,7 @@ export class AddAdminComponent implements OnInit {
       );
       return;
     }
+    this.isLoading = true;
 
     try {
       if (this.adminId) {
@@ -64,5 +66,6 @@ export class AddAdminComponent implements OnInit {
       console.log(error);
       this.utilsService.forwardErrorMessage("Failed to save admin.");
     }
+    this.isLoading = false;
   }
 }

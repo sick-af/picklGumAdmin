@@ -13,6 +13,7 @@ import { Location } from "@angular/common";
 export class AddProjectTypeComponent implements OnInit {
   public projectTypeId;
   public projectTypeForm: FormGroup;
+  public isLoading = false;
 
   constructor(
     private utilsService: UtilsService,
@@ -47,6 +48,7 @@ export class AddProjectTypeComponent implements OnInit {
       return;
     }
 
+    this.isLoading = true;
     try {
       if (this.projectTypeId) {
         await this.projectTypeService.updateProjectType(
@@ -62,5 +64,6 @@ export class AddProjectTypeComponent implements OnInit {
     } catch (error) {
       this.utilsService.forwardErrorMessage("Failed to save project type.");
     }
+    this.isLoading = false;
   }
 }

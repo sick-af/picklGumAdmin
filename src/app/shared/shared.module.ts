@@ -7,6 +7,7 @@ import { FormsModule } from "@angular/forms";
 import { ReusableInputFormComponent } from "./reusable-input-form/reusable-input-form.component";
 import { ImageUploadComponent } from "./image-upload/image-upload.component";
 import { MultipleImageUploadComponent } from "./multiple-image-upload/multiple-image-upload.component";
+import { SaveButtonComponent } from "./save-button/save-button.component";
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { MultipleImageUploadComponent } from "./multiple-image-upload/multiple-i
     ReusableDataTableComponent,
     ReusableInputFormComponent,
     ImageUploadComponent,
-    MultipleImageUploadComponent
+    MultipleImageUploadComponent,
+    SaveButtonComponent
   ],
   imports: [RouterModule, FormsModule, CommonModule],
   exports: [
@@ -22,7 +24,8 @@ import { MultipleImageUploadComponent } from "./multiple-image-upload/multiple-i
     ReusableDataTableComponent,
     ReusableInputFormComponent,
     ImageUploadComponent,
-    MultipleImageUploadComponent
+    MultipleImageUploadComponent,
+    SaveButtonComponent
   ]
 })
 export class SharedModule {}

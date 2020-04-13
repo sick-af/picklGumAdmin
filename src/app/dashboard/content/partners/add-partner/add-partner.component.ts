@@ -33,6 +33,7 @@ export class AddPartnerComponent implements OnInit {
       name: new FormControl(null, Validators.required),
       description: new FormControl(null, Validators.required),
       displayPicture: new FormControl(""),
+      url: new FormControl(""),
       partnerTypeId: new FormControl(null, Validators.required)
     });
   }
@@ -75,10 +76,11 @@ export class AddPartnerComponent implements OnInit {
 
     try {
       if (this.partnerId) {
-        await this.partnerService.updatePartner(
+        let response = await this.partnerService.updatePartner(
           this.partnerId,
           this.partnerForm.value
         );
+        console.log(response);
       } else {
         await this.partnerService.addPartner(this.partnerForm.value);
       }

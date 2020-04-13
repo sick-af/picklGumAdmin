@@ -61,7 +61,7 @@ export class MultipleImageUploadComponent implements OnInit {
       });
 
       let response = await this.mediaService.upload(formData);
-      let newUploadedPictures = response["body"]["pictures"];
+      let newUploadedPictures = response["body"]["files"];
       this.images = await this.images.filter(img => img["upload"] == null);
       let results = [...this.images, ...newUploadedPictures];
 

@@ -15,6 +15,7 @@ import { MultipleImageUploadComponent } from "src/app/shared/multiple-image-uplo
 export class AddProductComponent implements OnInit {
   public productId;
   public productForm: FormGroup;
+  public isLoading = false;
 
   @ViewChild("displayPicture", { static: false })
   displayPicture: ImageUploadComponent;
@@ -55,6 +56,7 @@ export class AddProductComponent implements OnInit {
       );
       return;
     }
+    this.isLoading = true;
 
     try {
       let displayPicture = await this.displayPicture.upload();
@@ -89,5 +91,6 @@ export class AddProductComponent implements OnInit {
     } catch (error) {
       this.utilsService.forwardErrorMessage("Failed to save product.");
     }
+    this.isLoading = false;
   }
 }

@@ -12,6 +12,7 @@ import { Location } from "@angular/common";
 export class AboutUsComponent implements OnInit {
   aboutUsForm: FormGroup;
   aboutUsId: String;
+  public isLoading = false;
 
   constructor(
     private aboutUsService: AboutUsService,
@@ -46,6 +47,7 @@ export class AboutUsComponent implements OnInit {
   }
 
   async submit() {
+    this.isLoading = true;
     try {
       if (this.aboutUsId) {
         await this.aboutUsService.update(
@@ -66,5 +68,6 @@ export class AboutUsComponent implements OnInit {
         "Failed to update your About Us information."
       );
     }
+    this.isLoading = false;
   }
 }

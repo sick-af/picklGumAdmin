@@ -17,6 +17,7 @@ export class AddProjectComponent implements OnInit {
   public projectId;
   public projectForm: FormGroup;
   public projectTypes;
+  public isLoading = false;
 
   @ViewChild("displayPicture", { static: false })
   displayPicture: ImageUploadComponent;
@@ -76,6 +77,8 @@ export class AddProjectComponent implements OnInit {
       return;
     }
 
+    this.isLoading = true;
+
     try {
       let displayPicture = await this.displayPicture.upload();
       if (displayPicture != null) {
@@ -109,5 +112,6 @@ export class AddProjectComponent implements OnInit {
     } catch (error) {
       this.utilsService.forwardErrorMessage("Failed to save project.");
     }
+    this.isLoading = false;
   }
 }

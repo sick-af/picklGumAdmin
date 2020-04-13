@@ -15,6 +15,7 @@ import { Location } from "@angular/common";
 export class AddCareerComponent implements OnInit {
   public careerId;
   public careerForm: FormGroup;
+  public isLoading = false;
 
   constructor(
     private utilsService: UtilsService,
@@ -49,6 +50,7 @@ export class AddCareerComponent implements OnInit {
       return;
     }
 
+    this.isLoading = true;
     try {
       if (this.careerId) {
         await this.careerService.updateCareer(
@@ -62,5 +64,6 @@ export class AddCareerComponent implements OnInit {
     } catch (error) {
       this.utilsService.forwardErrorMessage("Failed to save career.");
     }
+    this.isLoading = false;
   }
 }
