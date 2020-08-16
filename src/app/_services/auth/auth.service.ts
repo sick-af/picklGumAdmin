@@ -27,13 +27,14 @@ export class AuthService {
     try {
       const headers = new HttpHeaders().set(InterceptorSkipHeader, "");
       let res = await this.httpClient
-        .post(`/api/admin/login`, { admin: formValue }, { headers, params: {} })
+        .post(`/api/login`, { user: formValue }, { headers, params: {} })
         .toPromise();
 
       this.admin.next(res["admin"]);
       localStorage.setItem("token", res["token"]);
       localStorage.setItem("admin", JSON.stringify(res["admin"]));
     } catch (error) {
+      console.log(error)
       throw error;
     }
   }
