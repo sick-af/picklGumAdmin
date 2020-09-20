@@ -5,7 +5,7 @@ import { UtilsService } from "src/app/_services/utils/utils.service";
 @Component({
   selector: "app-admins",
   templateUrl: "./admins.component.html",
-  styleUrls: ["./admins.component.scss"]
+  styleUrls: ["./admins.component.scss"],
 })
 export class AdminsComponent implements OnInit {
   constructor(
@@ -18,7 +18,7 @@ export class AdminsComponent implements OnInit {
   public cols = [{ value: "username", title: "Username", visible: true }];
 
   ngOnInit() {
-    this.fetch();
+    // this.fetch();
   }
 
   async fetch() {

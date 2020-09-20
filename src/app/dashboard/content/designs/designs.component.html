@@ -1,137 +1,240 @@
 <div class="row">
-    <div class="col">
+  <div class="col">
+    <div class="card shadow">
+      <div class="card-header border-0">
+        <h3 class="mb-0">Designs</h3>
 
-
-        <div class="card shadow">
-            <div class="card-header border-0">
-                <h3 class="mb-0">Designs</h3>
-
-                <div class="row justify-content-end">
-                    <div class=" col-sm-12 col-md-4" style="height: 37px;">
-                        <div class="form-group">
-                            <div class="input-group input-group-alternative mb-4">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="ni ni-zoom-split-in"></i></span>
-                                </div>
-                                <input [(ngModel)]="searchValue" class="form-control form-control-alternative"
-                                    (ngModelChange)="search()" placeholder="Search" type="text">
-                            </div>
-                        </div>
-                    </div>
+        <div class="row justify-content-end">
+          <button
+            (click)="approve()"
+            type="button"
+            class="btn btn-primary"
+            [disabled]="selectedDesigns.length == 0"
+          >
+            Approve
+          </button>
+          <div class="col-sm-12 col-md-4" style="height: 37px">
+            <div class="form-group">
+              <div class="input-group input-group-alternative mb-4">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"
+                    ><i class="ni ni-zoom-split-in"></i
+                  ></span>
                 </div>
-
+                <input
+                  [(ngModel)]="searchValue"
+                  class="form-control form-control-alternative"
+                  (ngModelChange)="search()"
+                  placeholder="Search"
+                  type="text"
+                />
+              </div>
             </div>
-
-
-
-            <div class="table-responsive">
-
-                <div *ngIf="isLoading == true" class="table-loading">
-                    <app-progress-spinner></app-progress-spinner>
-                </div>
-
-                <table *ngIf="isLoading == false" class="table align-items-center table-flush">
-                    <thead class="thead-light">
-                        <tr>
-                            <ng-container *ngFor="let col of cols; let i = index">
-                                <th scope="col" *ngIf="col.visible == true">
-                                    {{col.title}}
-                                </th>
-                            </ng-container>
-
-                            <th *ngIf="disableEdit != true" scope="col">Preview</th>
-                            <th *ngIf="disableEdit != true" scope="col">Approve</th>
-                            <th scope="col">Reject</th>
-
-                        </tr>
-                    </thead>
-
-                    <tbody>
-
-                        <tr *ngFor="let element of elementsPage; let i = index">
-                            <ng-container *ngFor="let col of cols; let i = index">
-                                <th *ngIf="col.visible == true" style="max-width: 250px;">
-                                    <span>
-                                        {{ element[col.value] }}
-                                    </span>
-                                </th>
-                            </ng-container>
-                            <td>
-                                <a class="btn btn-sm btn-icon-only text-dark" role="button" aria-haspopup="true"
-                                    aria-expanded="false" href={{element.mockup_url}} target="_blank" >
-                                    <i class="fas fa-eye"></i>
-                                </a>
-                            </td>
-                            <td *ngIf="disableEdit != true">
-                                <a class="btn btn-sm btn-icon-only text-dark" role="button" aria-haspopup="true"
-                                    aria-expanded="false" (click)="approve(i)">
-                                    <i class="fas fa-check"></i>
-                                </a>
-                            </td>
-                            <td>
-                                <a class="btn btn-sm btn-icon-only text-dark" role="button" aria-haspopup="true"
-                                    aria-expanded="false" (click)="handleReject(i)" data-toggle="modal" data-target="#exampleModal">
-                                    <i class="fas fa-times"></i>
-                                </a>
-                            </td>
-                        </tr>
-
-                        <tr *ngIf="elementsPage.length == 0">
-                            <td class="no-data-table" [attr.colspan]="this.cols.length + 2">
-                                No <span style="text-transform: lowercase;">Designs</span> to show...
-                            </td>
-                        </tr>
-
-                    </tbody>
-                </table>
-                <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Add reason</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        </div>
-                        <div class="modal-body">
-                        <textarea  type="text" #reason></textarea>
-                        </div>
-                        <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" (click)="reject(reason.value)">Save changes</button>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="card-footer py-4">
-
-                <div class="row">
-                    <div class="col-sm-12 col-md-5">
-                        <div class="dataTables_info" id="datatable-basic_info" role="status" aria-live="polite">Showing
-                            {{ (pageNumber - 1) * pageSize }} to
-                            {{ (pageNumber - 1) * pageSize + elementsPage.length }} of {{ originalData.length }} entries
-                        </div>
-                    </div>
-                    <div class="col-sm-12 col-md-7">
-                        <div class="dataTables_paginate paging_simple_numbers" id="datatable-basic_paginate">
-                            <ul class="pagination justify-content-end mb-0">
-                                <li class="paginate_button page-item previous" [class.disabled]="pageNumber == 1"
-                                    id="datatable-basic_previous"><a (click)=" previousPage()" class="page-link"><i
-                                            class="fas fa-angle-left"></i></a></li>
-                                <li class="paginate_button page-item active"><a aria-controls="datatable-basic"
-                                        data-dt-idx="1" tabindex="0" class="page-link">{{ pageNumber }}</a></li>
-                                <li class="paginate_button page-item next" [class.disabled]="pageNumber >= totalPages"
-                                    id="datatable-basic_next"><a (click)="nextPage()" class="page-link"><i
-                                            class="fas fa-angle-right"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
+      </div>
+
+      <div class="table-responsive">
+        <div *ngIf="isLoading == true" class="table-loading">
+          <app-progress-spinner></app-progress-spinner>
+        </div>
+
+        <table
+          *ngIf="isLoading == false"
+          class="table align-items-center table-flush"
+        >
+          <thead class="thead-light">
+            <tr>
+              <th></th>
+              <ng-container *ngFor="let col of cols; let i = index">
+                <th scope="col" *ngIf="col.visible == true">
+                  {{ col.title }}
+                </th>
+              </ng-container>
+
+              <th scope="col">Preview</th>
+              <!-- <th *ngIf="disableEdit != true" scope="col">Approve</th> -->
+              <th scope="col">Reject</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let element of elementsPage; let i = index">
+              <ng-container *ngFor="let col of cols; let i = index">
+                <th id="center">
+                  <span>
+                    <input
+                      type="checkbox"
+                      class="form-check-input"
+                      id="element.id"
+                      (change)="
+                        handleSelection($event.currentTarget.checked, i)
+                      "
+                    />
+                  </span>
+                </th>
+                <th *ngIf="col.visible == true" style="max-width: 250px">
+                  <span>
+                    {{ element[col.value] }}
+                  </span>
+                </th>
+              </ng-container>
+              <td>
+                <!-- <i class="fas fa-eye"></i> -->
+                <div class="img-holder" (click)="redirect(element.mockup_url)">
+                  <img class="preview" src="{{ element.mockup_url }}" alt="" />
+                </div>
+                <!-- </td>
+              <td *ngIf="disableEdit != true">
+                <a
+                  class="btn btn-sm btn-icon-only text-dark"
+                  role="button"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                  (click)="approve(i)"
+                >
+                  <i class="fas fa-check"></i>
+                </a>
+              </td> -->
+              </td>
+
+              <td>
+                <a
+                  class="btn btn-sm btn-icon-only text-dark"
+                  role="button"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                  (click)="handleReject(i)"
+                  data-toggle="modal"
+                  data-target="#exampleModal"
+                >
+                  <i class="fas fa-times"></i>
+                </a>
+              </td>
+            </tr>
+
+            <tr *ngIf="elementsPage.length == 0">
+              <td class="no-data-table" [attr.colspan]="this.cols.length + 2">
+                No <span style="text-transform: lowercase">Designs</span> to
+                show...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- Modal -->
+        <div
+          class="modal fade"
+          id="exampleModal"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add reason</h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="dropdown">
+                  <button
+                    class="btn btn-primary dropdown-toggle"
+                    type="button"
+                    data-toggle="dropdown"
+                  >
+                    {{ selectedReason }} <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li *ngFor="let reason of reasons">
+                      <a (click)="selectedReason = reason.reason">{{
+                        reason.reason
+                      }}</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  (click)="reject()"
+                  data-dismiss="modal"
+                >
+                  Send
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-footer py-4">
+        <div class="row">
+          <div class="col-sm-12 col-md-5">
+            <div
+              class="dataTables_info"
+              id="datatable-basic_info"
+              role="status"
+              aria-live="polite"
+            >
+              Showing {{ (pageNumber - 1) * pageSize }} to
+              {{ (pageNumber - 1) * pageSize + elementsPage.length }} of
+              {{ originalData.length }} entries
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-7">
+            <div
+              class="dataTables_paginate paging_simple_numbers"
+              id="datatable-basic_paginate"
+            >
+              <ul class="pagination justify-content-end mb-0">
+                <li
+                  class="paginate_button page-item previous"
+                  [class.disabled]="pageNumber == 1"
+                  id="datatable-basic_previous"
+                >
+                  <a (click)="previousPage()" class="page-link"
+                    ><i class="fas fa-angle-left"></i
+                  ></a>
+                </li>
+                <li class="paginate_button page-item active">
+                  <a
+                    aria-controls="datatable-basic"
+                    data-dt-idx="1"
+                    tabindex="0"
+                    class="page-link"
+                    >{{ pageNumber }}</a
+                  >
+                </li>
+                <li
+                  class="paginate_button page-item next"
+                  [class.disabled]="pageNumber >= totalPages"
+                  id="datatable-basic_next"
+                >
+                  <a (click)="nextPage()" class="page-link"
+                    ><i class="fas fa-angle-right"></i
+                  ></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>

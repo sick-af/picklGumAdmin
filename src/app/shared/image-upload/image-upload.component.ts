@@ -3,7 +3,7 @@ import {
   OnInit,
   ElementRef,
   Input,
-  HostListener
+  HostListener,
 } from "@angular/core";
 import { MediaService } from "src/app/_services/media/media.service";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
@@ -12,10 +12,11 @@ import { HttpEventType } from "@angular/common/http";
 @Component({
   selector: "app-image-upload",
   templateUrl: "./image-upload.component.html",
-  styleUrls: ["./image-upload.component.scss"]
+  styleUrls: ["./image-upload.component.scss"],
 })
 export class ImageUploadComponent implements OnInit {
   public imagePath;
+  message = "";
   @Input() imgURL: any;
   @Input() progress;
 
@@ -36,7 +37,7 @@ export class ImageUploadComponent implements OnInit {
     var reader = new FileReader();
     this.imagePath = files;
     reader.readAsDataURL(files[0]);
-    reader.onload = _event => {
+    reader.onload = (_event) => {
       this.imgURL = reader.result;
     };
 

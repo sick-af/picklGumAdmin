@@ -2,10 +2,13 @@
 @import "~bootstrap/dist/css/bootstrap.min.css";
 @import url("https://fonts.googleapis.com/css?family=Montserrat:500,700");
 
-body{
-  font-family: 'Montserrat';
+body {
+  font-family: "Montserrat";
 }
 .save-button {
   padding: 0;
   margin: 0;
+}
+input {
+  text-align: center;
 }

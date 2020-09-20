@@ -4,7 +4,7 @@ import { SweetAlertService } from "src/app/_services/utils/sweet-alert.service";
 @Component({
   selector: "app-reusable-data-table",
   templateUrl: "./reusable-data-table.component.html",
-  styleUrls: ["./reusable-data-table.component.scss"]
+  styleUrls: ["./reusable-data-table.component.scss"],
 })
 export class ReusableDataTableComponent implements OnInit {
   @Input()
@@ -12,7 +12,7 @@ export class ReusableDataTableComponent implements OnInit {
 
   private data: any = [];
   public elementsPage = [];
-  private originalData: any = [];
+  public originalData: any = [];
 
   @Input("data")
   public set value(val) {
@@ -52,7 +52,7 @@ export class ReusableDataTableComponent implements OnInit {
 
   calculateNumberOfCols() {
     var number = 5;
-    this.cols.forEach(element => {
+    this.cols.forEach((element) => {
       if (element["visible"] != null) {
         number += 1;
       }
@@ -62,7 +62,7 @@ export class ReusableDataTableComponent implements OnInit {
   }
 
   async elementsInPage() {
-    this.count = this.data.length;
+    if (this.data) this.count = this.data.length;
     this.totalPages = Math.ceil(this.count / this.pageSize);
     var start = (this.pageNumber - 1) * this.pageSize;
     var end = this.pageNumber * this.pageSize;
@@ -92,8 +92,8 @@ export class ReusableDataTableComponent implements OnInit {
   search() {
     this.filteredData = this.originalData;
     let searchValue = this.searchValue.toLowerCase();
-    this.filteredData = this.filteredData.filter(element => {
-      return this.cols.some(key => {
+    this.filteredData = this.filteredData.filter((element) => {
+      return this.cols.some((key) => {
         if (key["secondary_value"]) {
           if (
             element[key["value"]][key["secondary_value"]] != null &&
@@ -107,10 +107,7 @@ export class ReusableDataTableComponent implements OnInit {
         } else {
           if (
             element[key["value"]] != null &&
-            element[key["value"]]
-              .toString()
-              .toLowerCase()
-              .includes(searchValue)
+            element[key["value"]].toString().toLowerCase().includes(searchValue)
           ) {
             return true;
           }

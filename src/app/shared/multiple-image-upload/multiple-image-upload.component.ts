@@ -4,12 +4,13 @@ import { MediaService } from "src/app/_services/media/media.service";
 @Component({
   selector: "app-multiple-image-upload",
   templateUrl: "./multiple-image-upload.component.html",
-  styleUrls: ["./multiple-image-upload.component.scss"]
+  styleUrls: ["./multiple-image-upload.component.scss"],
 })
 export class MultipleImageUploadComponent implements OnInit {
   public imagePath;
   @Input() images: any;
   public files = [];
+  message = "";
 
   constructor(public mediaService: MediaService) {}
 
@@ -20,13 +21,13 @@ export class MultipleImageUploadComponent implements OnInit {
 
     var filesArray = Array.prototype.slice.call(files);
     return Promise.all(
-      filesArray.map(async file => {
+      filesArray.map(async (file) => {
         const url = await this.fileToDataURL(file);
         this.files.push(file);
         this.images.push({
           url: url,
           upload: true,
-          fileIdx: this.files.length - 1
+          fileIdx: this.files.length - 1,
         });
       })
     );
@@ -39,8 +40,8 @@ export class MultipleImageUploadComponent implements OnInit {
 
   fileToDataURL(file) {
     var reader = new FileReader();
-    return new Promise(function(resolve, reject) {
-      reader.onload = function(event: any) {
+    return new Promise(function (resolve, reject) {
+      reader.onload = function (event: any) {
         resolve(event.target.result);
       };
       reader.readAsDataURL(file);
@@ -54,7 +55,7 @@ export class MultipleImageUploadComponent implements OnInit {
       }
 
       var formData = new FormData();
-      await this.images.map(element => {
+      await this.images.map((element) => {
         if (element.upload == true) {
           formData.append("files", this.files[element.fileIdx]);
         }
@@ -62,7 +63,7 @@ export class MultipleImageUploadComponent implements OnInit {
 
       let response = await this.mediaService.upload(formData);
       let newUploadedPictures = response["body"]["files"];
-      this.images = await this.images.filter(img => img["upload"] == null);
+      this.images = await this.images.filter((img) => img["upload"] == null);
       let results = [...this.images, ...newUploadedPictures];
 
       return results;

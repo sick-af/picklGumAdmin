@@ -1,0 +1,47 @@
+.variants {
+  padding: 1em;
+  display: flex;
+  flex-wrap: wrap;
+  .variant {
+    padding: 0 25px;
+    height: 50px;
+    font-size: 16px;
+    line-height: 50px;
+    border-radius: 25px;
+    background-color: #f1f1f1;
+    margin-right: 1em;
+    margin-bottom: 1em;
+    .closebtn {
+      padding-left: 10px;
+      color: #888;
+      font-weight: bold;
+      float: right;
+      font-size: 20px;
+      cursor: pointer;
+      &:hover {
+        color: #000;
+      }
+    }
+  }
+}
+.flex {
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  button {
+    width: 100%;
+    margin-top: 12px;
+  }
+}
+.table-responsive {
+  margin-top: 20px;
+  max-height: 600px;
+  overflow-y: scroll;
+}
+.img {
+  width: 150px !important;
+  img {
+    width: 100%;
+    height: auto;
+  }
+}

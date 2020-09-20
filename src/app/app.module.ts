@@ -9,6 +9,8 @@ import { ToastrModule } from "ngx-toastr";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AuthService } from "./_services/auth/auth.service";
 import { ApiInterceptor } from "./api-interceptor";
+import { NewInterceptor } from "./new-interceptor";
+import { LocationStrategy, HashLocationStrategy } from "@angular/common";
 
 @NgModule({
   declarations: [AppComponent, NotFoundComponent],
@@ -17,16 +19,17 @@ import { ApiInterceptor } from "./api-interceptor";
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
   ],
   providers: [
     AuthService,
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: ApiInterceptor,
-      multi: true
-    }
+      useClass: NewInterceptor,
+      multi: true,
+    },
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,0 +1,32 @@
+th {
+  text-transform: capitalize;
+}
+.items {
+  cursor: pointer;
+}
+.items-details {
+  display: flex;
+  justify-content: space-between;
+  .val {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+.labels {
+  display: flex;
+  justify-content: space-between;
+  .title {
+    font-weight: bold;
+  }
+}
+.card-body {
+  background-color: #eaecef;
+  padding: 0;
+}
+
+.items-row {
+  padding: 0 !important;
+  margin: 0;
+}

@@ -1,14 +1,20 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Injectable } from "@angular/core";
+import { HttpClient, HttpParams } from "@angular/common/http";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class ArtistsService {
-
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {}
 
   public getArtists() {
-    return this.httpClient.get(`/api/designer`, {}).toPromise();
+    let opt = { balance_due: { ">": 0 } };
+    let opts = new HttpParams().set("where", JSON.stringify(opt));
+    console.log(opts);
+
+    return this.httpClient.get(`designer`, { params: opts }).toPromise();
+  }
+  public pay(info) {
+    return this.httpClient.post(`designer/pay/`, info).toPromise();
   }
 }
