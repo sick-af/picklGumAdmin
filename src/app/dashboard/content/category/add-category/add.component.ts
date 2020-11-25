@@ -1,11 +1,12 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { UtilsService } from "src/app/_services/utils/utils.service";
 import { CategoryService } from "src/app/_services/db/category.service";
 import { ActivatedRoute } from "@angular/router";
 import { AuthService } from "src/app/_services/auth/auth.service";
 import { Location } from "@angular/common";
-import { promise } from "protractor";
+import { promise, $ } from "protractor";
+import { ModeService } from "src/app/_services/db/mode.service";
 class ImageSnippet {
   constructor(public src: string, public file: File) {}
 }
@@ -21,6 +22,8 @@ export class AddComponent implements OnInit {
   public isLoading = false;
   public variants = [];
   public variant;
+  public modes;
+  public activeMode;
   public cols = [
     { title: "Name" },
     { title: "Base Rate" },
@@ -29,17 +32,24 @@ export class AddComponent implements OnInit {
     { title: "Mockup Image" },
     { title: "Smart Image" },
   ];
+  @ViewChild("fileInput", { static: false })
+  myFileInput: ElementRef;
+
+  @ViewChild("fileInputSmart", { static: false })
+  mySmartFileInput: ElementRef;
 
   constructor(
     private utilsService: UtilsService,
     private categoryService: CategoryService,
     private location: Location,
     private route: ActivatedRoute,
-    private authService: AuthService
+    private authService: AuthService,
+    private modeService: ModeService
   ) {
     this.categoryID = this.route.snapshot.paramMap["params"]["id"];
     this.categoryForm = new FormGroup({
       name: new FormControl(null, Validators.required),
+      mode: new FormControl(null),
     });
     this.variantForm = new FormGroup({
       variant_name: new FormControl(null, Validators.required),
@@ -53,6 +63,10 @@ export class AddComponent implements OnInit {
 
   ngOnInit() {
     this.fetch();
+    this.fetchModes();
+  }
+  async fetchModes() {
+    this.modes = await this.modeService.fetchAll();
   }
   handleUpload(e, condition) {
     console.log(e.target.files[0]);
@@ -70,6 +84,10 @@ export class AddComponent implements OnInit {
 
     reader.readAsDataURL(file);
   }
+  handleEditingMode(mode) {
+    this.activeMode = mode;
+    this.categoryForm.patchValue({ mode: mode.id });
+  }
 
   changeField(new_value, column, idx) {
     this.variants[idx][column] = new_value;
@@ -82,6 +100,9 @@ export class AddComponent implements OnInit {
       inventory_management: "shopify",
     });
     this.variantForm.reset();
+
+    this.myFileInput.nativeElement.value = "";
+    this.mySmartFileInput.nativeElement.value = "";
   }
   deleteVariant(idx) {
     this.variants.splice(idx, 1);
@@ -118,7 +139,7 @@ export class AddComponent implements OnInit {
         await this.categoryService.createCategory(body);
         await this.categoryService.uploadToGoogleDrive(body);
         this.utilsService.handleSuccess(
-          "Categorie Created and inserted into google drive!"
+          "Categories Created and inserted into google drive!"
         );
       }
 

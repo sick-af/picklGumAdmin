@@ -45,3 +45,22 @@
     height: auto;
   }
 }
+.padding {
+  padding: 0px 15px;
+}
+.dropdown {
+  position: relative;
+}
+#dropdownMenuButton {
+  width: 100%;
+  background: white;
+  color: #6c757d;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: none;
+  box-shadow: none;
+}
+.show {
+  width: 100%;
+}

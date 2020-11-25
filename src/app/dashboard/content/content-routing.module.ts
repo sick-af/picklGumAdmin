@@ -11,6 +11,8 @@ import { CategoryComponent } from "./category/category.component";
 import { AddComponent } from "./category/add-category/add.component";
 import { ReasonsComponent } from "./reasons/reasons.component";
 import { AddReasonComponent } from "./reasons/add-reason/add-reason.component";
+import { ModesComponent } from "./modes/modes.component";
+import { AddModeComponent } from "./modes/add-mode/add-mode.component";
 
 const routes: Routes = [
   {
@@ -74,6 +76,18 @@ const routes: Routes = [
       {
         path: "reasons/:id",
         component: AddReasonComponent,
+      },
+      {
+        path: "modes",
+        component: ModesComponent,
+      },
+      {
+        path: "modes/add",
+        component: AddModeComponent,
+      },
+      {
+        path: "modes/:id",
+        component: AddModeComponent,
       },
     ],
   },

@@ -39,7 +39,8 @@ export class DesignsComponent implements OnInit {
     this.fetchReasons();
   }
   redirect(url) {
-    window.open(url, "_blank");
+    var newTab = window.open();
+    newTab.document.body.innerHTML = `<img src='${url}' />`;
   }
   handleSelection(checked, idx) {
     let design = this.data[idx];
@@ -49,7 +50,7 @@ export class DesignsComponent implements OnInit {
   }
   async fetchReasons() {
     this.reasons = await this.reasonService.fetchReasons();
-    this.selectedReason = this.reasons[0].reason;
+    this.selectedReason = this.reasons[0].text;
   }
 
   async fetch() {
@@ -60,7 +61,7 @@ export class DesignsComponent implements OnInit {
       this.originalData = response;
       this.elementsInPage();
     } catch (error) {
-      this.utilService.forwardErrorMessage("Failed to fetch the designs");
+      this.utilService.forwardErrorMessage(error);
     }
     this.isLoading = false;
   }
@@ -68,28 +69,30 @@ export class DesignsComponent implements OnInit {
   async approve() {
     this.isLoading = true;
     let responses = [];
+    let uploadToDrive = [];
     this.selectedDesigns.forEach((design) => {
       let res = this.designService.approve(design.id);
+      let promise = this.designService.upload(design);
       responses.push(res);
+      uploadToDrive.push(promise);
     });
     try {
-      Promise.all(responses);
-      // let design = this.data[idx];
-      // let res = await this.designService.approve(design.id);
-      this.fetch();
-      this.utilService.handleSuccess("Designs approved successfully");
+      Promise.all([responses, uploadToDrive]);
+
+      // this.utilService.handleSuccess("Designs approved successfully");
     } catch (error) {
       this.utilService.forwardErrorMessage("failed to approve designs");
     }
     this.isLoading = false;
   }
+
   async handleReject(idx) {
     this.activeIdx = idx;
   }
   async reject() {
     let design = this.data[this.activeIdx];
     try {
-      this.designService.reject(design.id, this.selectedReason);
+      await this.designService.reject(design.id, this.selectedReason);
       this.utilService.handleSuccess("Design rejected successfully");
     } catch (error) {
       this.utilService.forwardErrorMessage("failed to reject design");

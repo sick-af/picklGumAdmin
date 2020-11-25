@@ -60,7 +60,7 @@
 
           <tbody>
             <tr *ngFor="let element of elementsPage; let i = index">
-              <ng-container *ngFor="let col of cols; let i = index">
+              <ng-container *ngFor="let col of cols; let idx = index">
                 <th id="center">
                   <span>
                     <input
@@ -154,8 +154,8 @@
                   </button>
                   <ul class="dropdown-menu">
                     <li *ngFor="let reason of reasons">
-                      <a (click)="selectedReason = reason.reason">{{
-                        reason.reason
+                      <a (click)="selectedReason = reason.text">{{
+                        reason.text
                       }}</a>
                     </li>
                   </ul>

@@ -5,7 +5,7 @@
         <h3 class="mb-0">Artists</h3>
 
         <div class="row justify-content-end">
-          <div class="col-sm-12 col-md-4" style="height: 37px;">
+          <div class="col-sm-12 col-md-4" style="height: 37px">
             <div class="form-group">
               <div class="input-group input-group-alternative mb-4">
                 <div class="input-group-prepend">
@@ -52,7 +52,7 @@
           <tbody>
             <tr *ngFor="let element of elementsPage; let i = index">
               <ng-container *ngFor="let col of cols; let i = index">
-                <th *ngIf="col.visible == true" style="max-width: 250px;">
+                <th *ngIf="col.visible == true" style="max-width: 250px">
                   <span>
                     {{ element[col.value] }}
                   </span>
@@ -78,6 +78,7 @@
                 <input
                   id="{{ i }}"
                   type="number"
+                  value="{{ element['balance_due'] }}"
                   max="{{ element['balance_due'] }}"
                 />
               </td>
@@ -94,7 +95,7 @@
 
             <tr *ngIf="elementsPage.length == 0">
               <td class="no-data-table" [attr.colspan]="this.cols.length + 2">
-                No <span style="text-transform: lowercase;">Artists</span> to
+                No <span style="text-transform: lowercase">Artists</span> to
                 show...
               </td>
             </tr>
