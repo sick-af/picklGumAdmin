@@ -81,8 +81,15 @@
               </ng-container>
               <td>
                 <!-- <i class="fas fa-eye"></i> -->
-                <div class="img-holder" (click)="redirect(element.mockup_url)">
-                  <img class="preview" src="{{ element.mockup_url }}" alt="" />
+                <div
+                  class="img-holder"
+                  (click)="redirect(element.production_url)"
+                >
+                  <img
+                    class="preview"
+                    [src]="sanitizeImageUrl(element.production_url)"
+                    alt=""
+                  />
                 </div>
                 <!-- </td>
               <td *ngIf="disableEdit != true">
@@ -155,7 +162,7 @@
                   <ul class="dropdown-menu">
                     <li *ngFor="let reason of reasons">
                       <a (click)="selectedReason = reason.text">{{
-                        reason.text
+                        reason?.text
                       }}</a>
                     </li>
                   </ul>

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
-import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { FormGroup, FormControl, Validators, FormArray } from "@angular/forms";
 import { UtilsService } from "src/app/_services/utils/utils.service";
 import { CategoryService } from "src/app/_services/db/category.service";
 import { ActivatedRoute } from "@angular/router";
@@ -24,19 +24,11 @@ export class AddComponent implements OnInit {
   public variant;
   public modes;
   public activeMode;
-  public cols = [
-    { title: "Name" },
-    { title: "Base Rate" },
-    { title: "Height" },
-    { title: "Width" },
-    { title: "Mockup Image" },
-    { title: "Smart Image" },
-  ];
+  public images;
+  public cols = [{ title: "Name" }, { title: "Base Rate" }];
+
   @ViewChild("fileInput", { static: false })
   myFileInput: ElementRef;
-
-  @ViewChild("fileInputSmart", { static: false })
-  mySmartFileInput: ElementRef;
 
   constructor(
     private utilsService: UtilsService,
@@ -52,58 +44,52 @@ export class AddComponent implements OnInit {
       mode: new FormControl(null),
     });
     this.variantForm = new FormGroup({
-      variant_name: new FormControl(null, Validators.required),
-      height: new FormControl(null, Validators.required),
-      width: new FormControl(null, Validators.required),
+      name: new FormControl(null, Validators.required),
       base_rate: new FormControl(null, Validators.required),
-      mockup_img: new FormControl(null),
-      smart_mockup_img: new FormControl(null),
+      inventory_management: new FormControl("shopify"),
+      images: new FormControl(),
     });
+  }
+  modesConfig = {
+    displayKey: "name", //if objects array passed which key to be displayed defaults to description
+    height: "auto", //height of the list so that if there are more no of items it can show a scroll defaults to auto. With auto height scroll will never appear
+    placeholder: "select mode", // text to be displayed when no item is selected defaults to Select,
+    customComparator: () => {}, // a custom function using which user wants to sort the items. default is undefined and Array.sort() will be used in that case,
+    limitTo: 0, // number thats limits the no of options displayed in the UI (if zero, options will not be limited)
+    clearOnSelection: false, // clears search criteria when an option is selected if set to true, default is false
+  };
+  patchMode(mode) {
+    this.categoryForm.patchValue({
+      mode: mode.id,
+    });
+    this.activeMode = mode;
   }
 
   ngOnInit() {
     this.fetch();
     this.fetchModes();
   }
+
   async fetchModes() {
     this.modes = await this.modeService.fetchAll();
   }
-  handleUpload(e, condition) {
-    console.log(e.target.files[0]);
-    const file: File = e.target.files[0];
-    const reader = new FileReader();
-    let image;
-    reader.addEventListener("load", (event: any) => {
-      image = new ImageSnippet(event.target.result, file);
-      this.variantForm.value[condition] = {
-        name: image.file.name,
-        src: image.src,
-        type: image.file.type,
-      };
-    });
 
-    reader.readAsDataURL(file);
-  }
-  handleEditingMode(mode) {
-    this.activeMode = mode;
-    this.categoryForm.patchValue({ mode: mode.id });
+  handleUpload(e) {
+    this.images = e.target.files;
   }
 
   changeField(new_value, column, idx) {
     this.variants[idx][column] = new_value;
-    console.log(this.variants[idx]);
   }
-  addVariant() {
-    this.variants.push({
-      ...this.variantForm.value,
-      variant_name: this.variantForm.value.variant_name,
-      inventory_management: "shopify",
-    });
-    this.variantForm.reset();
 
+  addVariant() {
+    this.variantForm.patchValue({ images: JSON.stringify(this.images) });
+    this.variants.push(this.variantForm.value);
+    this.variantForm.reset();
+    this.images = [];
     this.myFileInput.nativeElement.value = "";
-    this.mySmartFileInput.nativeElement.value = "";
   }
+
   deleteVariant(idx) {
     this.variants.splice(idx, 1);
   }
@@ -113,9 +99,29 @@ export class AddComponent implements OnInit {
       this.categoryForm.patchValue(response);
       this.categoryForm.controls["name"].disable();
       this.variants = response["variants"];
-      // delete response["name"];
-      // this.variantForm.patchValue(response);
+      this.activeMode = response["mode"];
     }
+  }
+
+  uploadImages(category) {
+    let promises = [];
+    this.variants.forEach((variant) => {
+      variant.images.forEach((image) => {
+        console.log(image);
+        let formData: FormData = new FormData();
+        formData.append("image", image);
+        formData.append("category", category.id);
+        let promise = this.categoryService.uploadImages(formData);
+        promises.push(promise);
+      });
+    });
+    Promise.all(promises)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   async submit() {
@@ -128,16 +134,19 @@ export class AddComponent implements OnInit {
     this.isLoading = true;
 
     try {
-      let body = { ...this.categoryForm.value, variants: this.variants };
+      let body = { category: this.categoryForm.value };
       if (this.categoryID) {
         await this.categoryService.updateCategory(this.categoryID, body);
-        await this.categoryService.updateDrive(body);
+        // await this.categoryService.updateDrive(body);
         this.utilsService.handleSuccess(
           "Categories Updated and inserted into google drive!"
         );
       } else {
-        await this.categoryService.createCategory(body);
-        await this.categoryService.uploadToGoogleDrive(body);
+        let category = await this.categoryService.createCategory(body)[
+          "category"
+        ];
+        this.uploadImages(category);
+        // await this.categoryService.uploadToGoogleDrive(body);
         this.utilsService.handleSuccess(
           "Categories Created and inserted into google drive!"
         );

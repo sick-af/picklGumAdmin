@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { SweetAlertService } from "src/app/_services/utils/sweet-alert.service";
+import { CategoryService } from "src/app/_services/db/category.service";
 
 @Component({
   selector: "app-reusable-data-table",
@@ -45,10 +46,23 @@ export class ReusableDataTableComponent implements OnInit {
   public pageNumber = 1;
   public pageSize = 10;
   public count = 0;
+  public categories;
+  public opts = {};
+  public selectedCategory;
 
-  constructor(private swalService: SweetAlertService) {}
+  constructor(
+    private swalService: SweetAlertService,
+    private categoryService: CategoryService
+  ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.fetchCategories();
+  }
+  fetchCategories() {
+    this.categoryService.getCategories({ ...this.opts }).then((res) => {
+      this.categories = res;
+    });
+  }
 
   calculateNumberOfCols() {
     var number = 5;

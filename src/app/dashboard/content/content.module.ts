@@ -17,9 +17,12 @@ import { ProgressSpinnerComponent } from "src/app/shared/progress-spinner/progre
 import { CategoryComponent } from "./category/category.component";
 import { AddComponent } from "./category/add-category/add.component";
 import { ReasonsComponent } from "./reasons/reasons.component";
-import { AddReasonComponent } from './reasons/add-reason/add-reason.component';
-import { ModesComponent } from './modes/modes.component';
-import { AddModeComponent } from './modes/add-mode/add-mode.component';
+import { AddReasonComponent } from "./reasons/add-reason/add-reason.component";
+import { ModesComponent } from "./modes/modes.component";
+import { AddModeComponent } from "./modes/add-mode/add-mode.component";
+import { VariantsComponent } from "./variants/variants.component";
+import { AddVariantComponent } from "./variants/add-variant/add-variant.component";
+import { SelectDropDownModule } from "ngx-select-dropdown";
 
 @NgModule({
   declarations: [
@@ -36,8 +39,11 @@ import { AddModeComponent } from './modes/add-mode/add-mode.component';
     AddReasonComponent,
     ModesComponent,
     AddModeComponent,
+    VariantsComponent,
+    AddVariantComponent,
   ],
   imports: [
+    SelectDropDownModule,
     CommonModule,
     ContentRoutingModule,
     SharedModule,

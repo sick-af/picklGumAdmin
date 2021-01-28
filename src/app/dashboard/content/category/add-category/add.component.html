@@ -8,8 +8,8 @@
     <form autocomplete="off">
       <h6 class="heading-small text-muted mb-4">Category information</h6>
       <div class="pl-lg-4">
-        <div class="row">
-          <div [formGroup]="categoryForm" class="col-lg-12">
+        <div class="row" [formGroup]="categoryForm">
+          <div class="col-lg-12">
             <div class="form-group focused">
               <label class="form-control-label" for="input-username"
                 >Name</label
@@ -24,218 +24,23 @@
               />
             </div>
           </div>
-
-          <div class="row padding" [formGroup]="variantForm">
-            <div class="col-lg-12">
-              <div class="form-group focused">
-                <label class="form-control-label">Base Rate</label>
-                <input
-                  type="number"
-                  placeholder="Base Rate"
-                  formControlName="base_rate"
-                  class="form-control form-control-alternative"
-                />
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="form-group focused">
-                <label class="form-control-label">Height</label>
-                <input
-                  type="number"
-                  placeholder="Height"
-                  formControlName="height"
-                  class="form-control form-control-alternative"
-                />
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="form-group focused">
-                <label class="form-control-label">Width</label>
-                <input
-                  type="number"
-                  placeholder="width"
-                  class="form-control form-control-alternative"
-                  formControlName="width"
-                />
-              </div>
-            </div>
-
-            <div class="col-lg-12">
-              <div class="form-group focused">
-                <label class="form-control-label">Editing Mode</label>
-                <div class="dropdown form-control form-control-alternative">
-                  <button
-                    class="btn btn-secondary dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButton"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    {{ activeMode?.name || " choose a mode" }}
-                  </button>
-                  <div
-                    class="dropdown-menu"
-                    aria-labelledby="dropdownMenuButton"
-                  >
-                    <a
-                      *ngFor="let mode of modes"
-                      class="dropdown-item"
-                      (click)="handleEditingMode(mode)"
-                      >{{ mode.name }}</a
-                    >
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-3">
-              <div class="form-group focused">
-                <label class="form-control-label">variant name</label>
-                <input
-                  type="text"
-                  class="form-control form-control-alternative"
-                  placeholder="type a variant"
-                  formControlName="variant_name"
-                />
-              </div>
-            </div>
-            <div class="col-lg-3">
-              <label class="form-control-label">Mockup image</label>
-              <input
-                type="file"
-                #fileInput
-                class="form-control form-control-alternative"
-                (change)="handleUpload($event, 'mockup_img')"
-              />
-            </div>
-            <div class="col-lg-3">
-              <label class="form-control-label">Smart Mockup image</label>
-              <input
-                type="file"
-                #fileInputSmart
-                class="form-control form-control-alternative"
-                (change)="handleUpload($event, 'smart_mockup_img')"
-              />
-            </div>
-            <div class="col-lg-3 flex">
-              <button
-                (click)="addVariant()"
-                type="button"
-                class="btn btn-primary"
-                [disabled]="
-                  variantForm.invalid ||
-                  categoryForm.invalid ||
-                  !variantForm.value.mockup_img
-                "
+          <div class="col-lg-12">
+            <div class="form-group focused">
+              <label class="form-control-label" for="input-username"
+                >Mode</label
               >
-                Add variant
-              </button>
+              <ngx-select-dropdown
+                [(ngModel)]="activeMode"
+                [options]="modes"
+                [config]="modesConfig"
+                (change)="patchMode($event.value)"
+                [ngModelOptions]="{ standalone: true }"
+              >
+              </ngx-select-dropdown>
             </div>
           </div>
         </div>
       </div>
-
-      <div class="table-responsive">
-        <div *ngIf="isLoading == true" class="table-loading">
-          <app-progress-spinner></app-progress-spinner>
-        </div>
-        <h6 class="heading-small text-muted mb-4">Variants</h6>
-
-        <table
-          *ngIf="isLoading == false"
-          class="table align-items-center table-flush"
-        >
-          <thead class="thead-light">
-            <tr>
-              <ng-container *ngFor="let col of cols; let i = index">
-                <th scope="col">
-                  {{ col.title }}
-                </th>
-              </ng-container>
-
-              <th scope="col">Delete</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <tr *ngFor="let variant of variants; let idx = index">
-              <ng-container>
-                <th
-                  contenteditable="true"
-                  (blur)="
-                    changeField($event.target.outerText, 'variant_name', idx)
-                  "
-                  style="max-width: 250px"
-                >
-                  <span>
-                    {{ variant.variant_name }}
-                  </span>
-                </th>
-                <th
-                  contenteditable="true"
-                  (blur)="
-                    changeField($event.target.outerText, 'base_rate', idx)
-                  "
-                  style="max-width: 250px"
-                >
-                  <span>
-                    {{ variant.base_rate }}
-                  </span>
-                </th>
-                <th
-                  contenteditable="true"
-                  (blur)="changeField($event.target.outerText, 'height', idx)"
-                  style="max-width: 250px"
-                >
-                  <span>
-                    {{ variant.height }}
-                  </span>
-                </th>
-                <th
-                  contenteditable="true"
-                  (blur)="changeField($event.target.outerText, 'width', idx)"
-                  style="max-width: 250px"
-                >
-                  <span>
-                    {{ variant.width }}
-                  </span>
-                </th>
-                <th style="max-width: 250px">
-                  <div class="img">
-                    <img src="{{ variant?.mockup_img?.src }}" alt="" />
-                  </div>
-                </th>
-                <th style="max-width: 250px">
-                  <div class="img">
-                    <img src="{{ variant?.smart_mockup_img?.src }}" alt="" />
-                  </div>
-                </th>
-              </ng-container>
-
-              <td>
-                <a
-                  class="btn btn-sm btn-icon-only text-dark"
-                  role="button"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                  (click)="deleteVariant(idx)"
-                >
-                  <i class="fas fa-trash"></i>
-                </a>
-              </td>
-            </tr>
-
-            <tr *ngIf="variants.length == 0">
-              <td class="no-data-table" [attr.colspan]="this.cols.length + 2">
-                No <span style="text-transform: lowercase">Variants</span> to
-                show...
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <hr class="my-4" />
 
       <app-save-button
         (onSubmit)="submit()"

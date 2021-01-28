@@ -154,6 +154,20 @@
             <i class="fa fa-list-alt text-primary"></i> Categories
           </a>
         </li>
+        <li
+          class="nav-item"
+          routerLinkActive="menu-active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <a
+            class="nav-link"
+            [routerLink]="['variants']"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <i class="fa fa-comments text-primary"></i> Variants
+          </a>
+        </li>
 
         <li
           class="nav-item"

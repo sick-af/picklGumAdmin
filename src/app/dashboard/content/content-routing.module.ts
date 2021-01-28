@@ -13,6 +13,8 @@ import { ReasonsComponent } from "./reasons/reasons.component";
 import { AddReasonComponent } from "./reasons/add-reason/add-reason.component";
 import { ModesComponent } from "./modes/modes.component";
 import { AddModeComponent } from "./modes/add-mode/add-mode.component";
+import { VariantsComponent } from "./variants/variants.component";
+import { AddVariantComponent } from "./variants/add-variant/add-variant.component";
 
 const routes: Routes = [
   {
@@ -88,6 +90,18 @@ const routes: Routes = [
       {
         path: "modes/:id",
         component: AddModeComponent,
+      },
+      {
+        path: "variants",
+        component: VariantsComponent,
+      },
+      {
+        path: "variants/add",
+        component: AddVariantComponent,
+      },
+      {
+        path: "variants/:id",
+        component: AddVariantComponent,
       },
     ],
   },

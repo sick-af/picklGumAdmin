@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { InterceptorSkipHeader } from "src/app/api-interceptor";
 import { BehaviorSubject } from "rxjs";
 import { environment } from "../../../environments/environment.prod";
+import { Router } from "@angular/router";
 @Injectable({
   providedIn: "root",
 })
@@ -11,7 +12,7 @@ export class AuthService {
   public adminValue = this.admin.asObservable();
   baseUrl: string = environment.backendURL;
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private router: Router) {
     // this.fetch();
   }
 
@@ -26,14 +27,13 @@ export class AuthService {
 
   public async login(formValue) {
     try {
-      const headers = new HttpHeaders().set(InterceptorSkipHeader, "");
       let res = await this.httpClient
-        .post(`login`, { user: formValue }, { headers, params: {} })
+        .post(`login`, { user: formValue })
         .toPromise();
 
       this.admin.next(res);
-      localStorage.setItem("token", JSON.stringify(res));
-      localStorage.setItem("admin", JSON.stringify(res));
+      localStorage.setItem("admin", JSON.stringify(res["admin"]));
+      localStorage.setItem("token", JSON.stringify(res["token"]));
     } catch (error) {
       console.log(error);
       throw error;

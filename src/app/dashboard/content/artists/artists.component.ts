@@ -73,6 +73,7 @@ export class ArtistsComponent implements OnInit {
     this.isLoading = true;
     try {
       let response = await this.artistService.getArtists();
+      console.log(response);
       this.data = response;
       this.originalData = response;
       this.elementsInPage();

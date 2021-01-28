@@ -3,6 +3,7 @@ import { UtilsService } from "src/app/_services/utils/utils.service";
 import { DesignsService } from "src/app/_services/db/designs.service";
 import * as $ from "jquery";
 import { ReasonsService } from "src/app/_services/db/reasons.service";
+import { SafeUrl, DomSanitizer } from "@angular/platform-browser";
 
 @Component({
   selector: "app-designs",
@@ -31,12 +32,16 @@ export class DesignsComponent implements OnInit {
   constructor(
     private utilService: UtilsService,
     private designService: DesignsService,
-    private reasonService: ReasonsService
+    private reasonService: ReasonsService,
+    private sanitizer: DomSanitizer
   ) {}
 
   ngOnInit() {
     this.fetch();
     this.fetchReasons();
+  }
+  sanitizeImageUrl(imageUrl: string): SafeUrl {
+    return this.sanitizer.bypassSecurityTrustUrl(imageUrl);
   }
   redirect(url) {
     var newTab = window.open();
@@ -44,13 +49,12 @@ export class DesignsComponent implements OnInit {
   }
   handleSelection(checked, idx) {
     let design = this.data[idx];
-    if (checked) this.selectedDesigns.push(design);
+    if (checked) this.selectedDesigns.push({ design: design, idx: idx });
     else this.selectedDesigns.splice(idx, 1);
-    console.log(this.selectedDesigns);
   }
   async fetchReasons() {
     this.reasons = await this.reasonService.fetchReasons();
-    this.selectedReason = this.reasons[0].text;
+    if (this.reasons.length) this.selectedReason = this.reasons[0].text;
   }
 
   async fetch() {
@@ -71,15 +75,16 @@ export class DesignsComponent implements OnInit {
     let responses = [];
     let uploadToDrive = [];
     this.selectedDesigns.forEach((design) => {
-      let res = this.designService.approve(design.id);
-      let promise = this.designService.upload(design);
+      let res = this.designService.approve(design.design.id);
+      let uploadRes = this.designService.upload({
+        designrequest: design.design,
+      });
+      uploadToDrive.push(uploadRes);
       responses.push(res);
-      uploadToDrive.push(promise);
     });
     try {
-      Promise.all([responses, uploadToDrive]);
-
-      // this.utilService.handleSuccess("Designs approved successfully");
+      Promise.all([uploadToDrive, responses]);
+      this.utilService.handleSuccess("Designs approved successfully");
     } catch (error) {
       this.utilService.forwardErrorMessage("failed to approve designs");
     }

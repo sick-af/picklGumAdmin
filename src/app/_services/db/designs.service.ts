@@ -21,7 +21,7 @@ export class DesignsService {
       .patch(`design/reject/${id}`, { reason: reason })
       .toPromise();
   }
-  public upload(design) {
-    return this.httpClient.post("drive/products", design).toPromise();
+  public upload(body) {
+    return this.httpClient.post("designrequest/upload", body).toPromise();
   }
 }

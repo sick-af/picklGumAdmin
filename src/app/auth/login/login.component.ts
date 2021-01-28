@@ -7,7 +7,7 @@ import { Router } from "@angular/router";
 @Component({
   selector: "app-login",
   templateUrl: "./login.component.html",
-  styleUrls: ["./login.component.scss"]
+  styleUrls: ["./login.component.scss"],
 })
 export class LoginComponent implements OnInit {
   isLoading: boolean;
@@ -21,11 +21,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = new FormGroup({
-      email: new FormControl(
-        null,
-        Validators.compose([Validators.required])
-      ),
-      password: new FormControl(null, Validators.required)
+      email: new FormControl(null, Validators.compose([Validators.required])),
+      password: new FormControl(null, Validators.required),
     });
     this.isLoading = false;
   }
@@ -33,15 +30,16 @@ export class LoginComponent implements OnInit {
   async submit() {
     this.isLoading = true;
 
-    try {
-      await this.authService.login(this.loginForm.value);
-      this.utilsService.handleSuccess("You've successfully logged in");
-      this.router.navigate(["/dashboard/"], {});
-    } catch (err) {
-      this.utilsService.forwardErrorMessage("Wrong credentials");
-      console.log(err);
-    }
-
-    this.isLoading = false;
+    this.authService
+      .login(this.loginForm.value)
+      .then((res) => {
+        this.isLoading = false;
+        this.utilsService.handleSuccess("You've successfully logged in");
+        this.router.navigate(["/"]);
+      })
+      .catch((err) => {
+        this.isLoading = false;
+        this.utilsService.forwardErrorMessage("Wrong credentials");
+      });
   }
 }

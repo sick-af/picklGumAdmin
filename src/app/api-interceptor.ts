@@ -9,7 +9,7 @@ import {
   HttpProgressEvent,
   HttpUserEvent,
   HttpErrorResponse,
-  HttpClient
+  HttpClient,
 } from "@angular/common/http";
 
 import { Observable, of, from, throwError } from "rxjs";
@@ -35,7 +35,7 @@ export class ApiInterceptor implements HttpInterceptor {
   addToken(req: HttpRequest<any>): HttpRequest<any> {
     const apiToken = localStorage.getItem("token");
     return req.clone({
-      headers: req.headers.set("Authorization", apiToken)
+      headers: req.headers.set("Authorization", apiToken),
     });
   }
   // TODO: refresh token
@@ -58,7 +58,7 @@ export class ApiInterceptor implements HttpInterceptor {
     const authReq = this.addToken(req);
     // send the newly created request
     return next.handle(authReq).pipe(
-      map(data => data),
+      map((data) => data),
       catchError((error, caught) => {
         if (error.status === 401) {
           console.log("LALALALAL");
