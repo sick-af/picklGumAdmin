@@ -13,8 +13,8 @@ export class CategoryService {
   public getCategory(id) {
     return this.httpClient.get(`category/${id}`, {}).toPromise();
   }
-  public createCategory(body) {
-    return this.httpClient.post(`category`, body).toPromise();
+  public createCategory(formData) {
+    return this.httpClient.post(`category`, formData).toPromise();
   }
   public updateCategory(id, body) {
     console.log(id, body);

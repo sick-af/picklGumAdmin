@@ -7,6 +7,7 @@ import { AuthService } from "src/app/_services/auth/auth.service";
 import { Location } from "@angular/common";
 import { promise, $ } from "protractor";
 import { ModeService } from "src/app/_services/db/mode.service";
+import { ThrowStmt } from "@angular/compiler";
 class ImageSnippet {
   constructor(public src: string, public file: File) {}
 }
@@ -25,6 +26,7 @@ export class AddComponent implements OnInit {
   public modes;
   public activeMode;
   public images;
+  public categoryImage;
   public cols = [{ title: "Name" }, { title: "Base Rate" }];
 
   @ViewChild("fileInput", { static: false })
@@ -76,6 +78,8 @@ export class AddComponent implements OnInit {
 
   handleUpload(e) {
     this.images = e.target.files;
+    this.categoryImage = e.target.files[0];
+    this.categoryForm.patchValue({ image: e.target.files[0] });
   }
 
   changeField(new_value, column, idx) {
@@ -142,7 +146,12 @@ export class AddComponent implements OnInit {
           "Categories Updated and inserted into google drive!"
         );
       } else {
-        let category = await this.categoryService.createCategory(body)[
+        let formData = new FormData();
+        formData.append("image", this.categoryImage);
+        formData.append("name", this.categoryForm.value.name)
+        formData.append("mode", this.categoryForm.value.mode)
+        formData.append("file_name", this.categoryImage.name)           
+        let category = await this.categoryService.createCategory(formData)[
           "category"
         ];
         this.uploadImages(category);
