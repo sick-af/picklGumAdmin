@@ -43,6 +43,9 @@ export class AddComponent implements OnInit {
     this.categoryID = this.route.snapshot.paramMap["params"]["id"];
     this.categoryForm = new FormGroup({
       name: new FormControl(null, Validators.required),
+      first_attribute: new FormControl(null),
+      second_attribute: new FormControl(null),
+      third_attribute: new FormControl(null),
       mode: new FormControl(null),
     });
     this.variantForm = new FormGroup({
@@ -147,8 +150,13 @@ export class AddComponent implements OnInit {
         );
       } else {
         let formData = new FormData();
+        console.log(this.categoryForm.value);
+        
         formData.append("image", this.categoryImage);
         formData.append("name", this.categoryForm.value.name)
+        formData.append("first_attribute", this.categoryForm.value.first_attribute)
+        formData.append("second_attribute", this.categoryForm.value.second_attribute)
+        formData.append("third_attribute", this.categoryForm.value.third_attribute)
         formData.append("mode", this.categoryForm.value.mode)
         formData.append("file_name", this.categoryImage.name)           
         let category = await this.categoryService.createCategory(formData)[
