@@ -72,6 +72,43 @@
               (change)="handleUpload($event)"
             />
           </div>
+
+          <div class="col-lg-6" *ngIf="first_attribute">
+            <div class="form-group focused">
+              <label class="form-control-label">{{first_attribute}}</label>
+              <input
+                type="text"
+                placeholder="value"
+                formControlName="first_attribute_value"
+                class="form-control form-control-alternative"
+              />
+            </div>
+          </div>
+
+          <div class="col-lg-6" *ngIf="second_attribute">
+            <div class="form-group focused">
+              <label class="form-control-label">{{second_attribute}}</label>
+              <input
+                type="text"
+                placeholder="value"
+                formControlName="second_attribute_value"
+                class="form-control form-control-alternative"
+              />
+            </div>
+          </div>
+
+          <div class="col-lg-6" *ngIf="third_attribute">
+            <div class="form-group focused">
+              <label class="form-control-label">{{third_attribute}}</label>
+              <input
+                type="text"
+                placeholder="value"
+                formControlName="third_attribute_value"
+                class="form-control form-control-alternative"
+              />
+            </div>
+          </div>
+
         </div>
         <div class="row images">
           <div

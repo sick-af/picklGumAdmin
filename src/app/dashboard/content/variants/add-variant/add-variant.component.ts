@@ -16,6 +16,9 @@ export class AddVariantComponent implements OnInit {
   public loading = 0;
   public categories: any;
   public selectedCategory;
+  public first_attribute;
+  public second_attribute;
+  public third_attribute;
   public images;
   public image;
 
@@ -45,6 +48,9 @@ export class AddVariantComponent implements OnInit {
       name: new FormControl(null, Validators.required),
       base_rate: new FormControl(null, Validators.required),
       sku: new FormControl(null, Validators.required),
+      first_attribute_value: new FormControl(null),
+      second_attribute_value: new FormControl(null),
+      third_attribute_value: new FormControl(null),
       inventory_management: new FormControl("shopify"),
       images: new FormControl(),
       category: new FormControl(),
@@ -73,6 +79,11 @@ export class AddVariantComponent implements OnInit {
   }
   categorySelected(category) {
     this.variantForm.patchValue({ category: category.value.id });
+        
+    this.first_attribute = category.value.first_attribute;
+    this.second_attribute = category.value.second_attribute;
+    this.third_attribute = category.value.third_attribute;
+    
     console.log(this.variantForm.value);
   }
   deleteImage(idx) {
