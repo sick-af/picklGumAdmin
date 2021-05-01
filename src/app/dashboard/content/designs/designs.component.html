@@ -53,6 +53,7 @@
               </ng-container>
 
               <th scope="col">Preview</th>
+              <th scope="col">Category</th>
               <!-- <th *ngIf="disableEdit != true" scope="col">Approve</th> -->
               <th scope="col">Reject</th>
             </tr>
@@ -104,6 +105,8 @@
                 </a>
               </td> -->
               </td>
+
+              <td>{{ element.category_id?element.category_id.name:"" }}</td>
 
               <td>
                 <a
