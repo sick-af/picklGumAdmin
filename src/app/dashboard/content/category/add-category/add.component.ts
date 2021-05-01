@@ -154,9 +154,12 @@ export class AddComponent implements OnInit {
         
         formData.append("image", this.categoryImage);
         formData.append("name", this.categoryForm.value.name)
-        formData.append("first_attribute", this.categoryForm.value.first_attribute)
-        formData.append("second_attribute", this.categoryForm.value.second_attribute)
-        formData.append("third_attribute", this.categoryForm.value.third_attribute)
+        if(this.categoryForm.value.first_attribute)
+          formData.append("first_attribute", this.categoryForm.value.first_attribute)
+        if(this.categoryForm.value.second_attribute)
+          formData.append("second_attribute", this.categoryForm.value.second_attribute)
+        if(this.categoryForm.value.third_attribute)
+          formData.append("third_attribute", this.categoryForm.value.third_attribute)
         formData.append("mode", this.categoryForm.value.mode)
         formData.append("file_name", this.categoryImage.name)           
         let category = await this.categoryService.createCategory(formData)[
