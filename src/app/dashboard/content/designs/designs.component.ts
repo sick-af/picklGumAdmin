@@ -48,7 +48,7 @@ export class DesignsComponent implements OnInit {
     newTab.document.body.innerHTML = `<img src='${url}' />`;
   }
   handleSelection(checked, idx) {
-    let design = this.data[idx];
+    let design = this.elementsPage[idx];    
     if (checked) this.selectedDesigns.push({ design: design, idx: idx });
     else this.selectedDesigns.splice(idx, 1);
   }
