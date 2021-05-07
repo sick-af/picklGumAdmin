@@ -143,36 +143,49 @@ export class AddComponent implements OnInit {
     try {
       let body = { category: this.categoryForm.value };
       if (this.categoryID) {
-        await this.categoryService.updateCategory(this.categoryID, body);
-        // await this.categoryService.updateDrive(body);
-        this.utilsService.handleSuccess(
-          "Categories Updated and inserted into google drive!"
+        let category = await this.categoryService.updateCategory(
+          this.categoryID,
+          body
         );
+        // await this.categoryService.updateDrive(body);
+        if (category) {
+          this.utilsService.handleSuccess(
+            "Category created successfully"
+          );
+          this.location.back();
+        }
       } else {
         let formData = new FormData();
-        console.log(this.categoryForm.value);
-        
+        formData.append("name", this.categoryForm.value.name);
+        if (this.categoryForm.value.first_attribute)
+          formData.append(
+            "first_attribute",
+            this.categoryForm.value.first_attribute
+          );
+        if (this.categoryForm.value.second_attribute)
+          formData.append(
+            "second_attribute",
+            this.categoryForm.value.second_attribute
+          );
+        if (this.categoryForm.value.third_attribute)
+          formData.append(
+            "third_attribute",
+            this.categoryForm.value.third_attribute
+          );
+        formData.append("mode", this.categoryForm.value.mode);
+        formData.append("file_name", this.categoryImage.name);
         formData.append("image", this.categoryImage);
-        formData.append("name", this.categoryForm.value.name)
-        if(this.categoryForm.value.first_attribute)
-          formData.append("first_attribute", this.categoryForm.value.first_attribute)
-        if(this.categoryForm.value.second_attribute)
-          formData.append("second_attribute", this.categoryForm.value.second_attribute)
-        if(this.categoryForm.value.third_attribute)
-          formData.append("third_attribute", this.categoryForm.value.third_attribute)
-        formData.append("mode", this.categoryForm.value.mode)
-        formData.append("file_name", this.categoryImage.name)           
-        let category = await this.categoryService.createCategory(formData)[
-          "category"
-        ];
-        this.uploadImages(category);
+        let category = await this.categoryService.createCategory(formData);
+        // this.uploadImages(category);
         // await this.categoryService.uploadToGoogleDrive(body);
-        this.utilsService.handleSuccess(
-          "Categories Created and inserted into google drive!"
-        );
-      }
 
-      this.location.back();
+        if (category) {
+          this.utilsService.handleSuccess(
+            "Category Created successfully!"
+          );
+          this.location.back();
+        } else throw new Error();
+      }
     } catch (error) {
       this.utilsService.forwardErrorMessage("Failed to save category.");
     }
