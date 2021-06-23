@@ -201,8 +201,8 @@
   <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
     <div class="container-fluid">
       <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block"
-        >Dashboard</a
-      >
+        >Dashboard</a>
+
       <ul class="navbar-nav align-items-center d-none d-md-flex">
         <li class="nav-item dropdown">
           <a
@@ -218,9 +218,7 @@
                                 <img alt="Image placeholder" src="./assets/img/theme/team-4-800x800.jpg">
                             </span> -->
               <div class="media-body ml-2 d-none d-lg-block">
-                <span class="mb-0 text-sm font-weight-bold">{{
-                  username
-                }}</span>
+                <span class="mb-0 text-sm font-weight-bold">Profile</span>
               </div>
             </div>
           </a>
@@ -233,7 +231,7 @@
                             <span>My profile</span>
                         </a> -->
             <div class="dropdown-divider"></div>
-            <a (click)="logout()" class="dropdown-item">
+            <a (click)="logout()" class="dropdown-item" style="cursor: pointer;">
               <i class="ni ni-user-run"></i>
               <span>Logout</span>
             </a>

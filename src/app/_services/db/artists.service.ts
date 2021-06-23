@@ -7,10 +7,13 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 export class ArtistsService {
   constructor(private httpClient: HttpClient) {}
 
+  public getAllArtists() {
+    return this.httpClient.get(`designer`).toPromise();
+  }
+
   public getArtists() {
     let opt = { balance_due: { ">": 0 } };
     let opts = new HttpParams().set("where", JSON.stringify(opt));
-    console.log(opts);
 
     return this.httpClient.get(`designer`, { params: opts }).toPromise();
   }
