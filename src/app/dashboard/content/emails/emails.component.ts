@@ -16,6 +16,7 @@ export class EmailsComponent implements OnInit {
     { value: "first_name", title: "Name", visible: true },
     { value: "last_name", title: "Last Name", visible: true },
     { value: "email", title: "Email", visible: true },
+    { value: "phone_number", title: "Phone", visible: true },
   ];
   filteredData = [];
   public amount;
