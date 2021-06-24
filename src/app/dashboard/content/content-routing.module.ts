@@ -15,6 +15,7 @@ import { ModesComponent } from "./modes/modes.component";
 import { AddModeComponent } from "./modes/add-mode/add-mode.component";
 import { VariantsComponent } from "./variants/variants.component";
 import { AddVariantComponent } from "./variants/add-variant/add-variant.component";
+import { EmailsComponent } from "./emails/emails.component";
 
 const routes: Routes = [
   {
@@ -50,6 +51,10 @@ const routes: Routes = [
       {
         path: "artists",
         component: ArtistsComponent,
+      },
+      {
+        path: "emails",
+        component: EmailsComponent,
       },
       {
         path: "orders",

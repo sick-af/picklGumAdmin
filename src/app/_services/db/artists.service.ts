@@ -11,6 +11,10 @@ export class ArtistsService {
     return this.httpClient.get(`designer`).toPromise();
   }
 
+  public sendEmail(email:any) {
+    return this.httpClient.post(`designer/email`, email).toPromise();
+  }
+
   public getArtists() {
     let opt = { balance_due: { ">": 0 } };
     let opts = new HttpParams().set("where", JSON.stringify(opt));

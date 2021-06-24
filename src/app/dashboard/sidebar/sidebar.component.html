@@ -125,6 +125,22 @@
             <i class="fa fa-users text-primary"></i> Artists
           </a>
         </li>
+
+        <li
+          class="nav-item"
+          routerLinkActive="menu-active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <a
+            class="nav-link"
+            [routerLink]="['emails']"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <i class="fa fa-envelope text-primary"></i> Emails
+          </a>
+        </li>
+
         <li
           class="nav-item"
           routerLinkActive="menu-active"

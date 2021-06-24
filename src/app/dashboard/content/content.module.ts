@@ -23,6 +23,7 @@ import { AddModeComponent } from "./modes/add-mode/add-mode.component";
 import { VariantsComponent } from "./variants/variants.component";
 import { AddVariantComponent } from "./variants/add-variant/add-variant.component";
 import { SelectDropDownModule } from "ngx-select-dropdown";
+import { EmailsComponent } from "./emails/emails.component";
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { SelectDropDownModule } from "ngx-select-dropdown";
     AddModeComponent,
     VariantsComponent,
     AddVariantComponent,
+    EmailsComponent
   ],
   imports: [
     SelectDropDownModule,
