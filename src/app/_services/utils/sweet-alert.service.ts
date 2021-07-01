@@ -14,8 +14,8 @@ export class SweetAlertService {
       confirmButtonText: 'Send Email',
       focusConfirm: false,
       preConfirm: () => {
-        const subject = Swal.getPopup().querySelector('#subject').value
-        const body = Swal.getPopup().querySelector('#body').value
+        const subject = (<HTMLInputElement>Swal.getPopup().querySelector('#subject')).value;
+        const body = (<HTMLInputElement>Swal.getPopup().querySelector('#body')).value;
         if (!subject || !body) {
           Swal.showValidationMessage(`Please enter subject and body`)
         }
