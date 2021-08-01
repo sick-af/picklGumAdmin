@@ -64,21 +64,6 @@
             </div>
           </div>
           <div class="col-lg-12">
-            <div class="form-group focused">
-              <label class="form-control-label" for="input-username"
-                >Mode</label
-              >
-              <ngx-select-dropdown
-                [(ngModel)]="activeMode"
-                [options]="modes"
-                [config]="modesConfig"
-                (change)="patchMode($event.value)"
-                [ngModelOptions]="{ standalone: true }"
-              >
-              </ngx-select-dropdown>
-            </div>
-          </div>
-          <div class="col-lg-12">
             <label class="form-control-label">Image</label>
             <input
               type="file"

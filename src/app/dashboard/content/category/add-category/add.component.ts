@@ -172,7 +172,7 @@ export class AddComponent implements OnInit {
             "third_attribute",
             this.categoryForm.value.third_attribute
           );
-        formData.append("mode", this.categoryForm.value.mode);
+        // formData.append("mode", this.categoryForm.value.mode);
         formData.append("file_name", this.categoryImage.name);
         formData.append("image", this.categoryImage);
         let category = await this.categoryService.createCategory(formData);
